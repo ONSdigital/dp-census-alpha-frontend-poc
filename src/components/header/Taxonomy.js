@@ -22,7 +22,7 @@ export class Taxonomy extends React.Component {
                 <div className="wrapper nav-main--hidden" id="nav-primary" aria-expanded="false">
                     <ul className="primary-nav__list">
                         <li className="primary-nav__item js-nav hide--sm old-ie--display-block">
-                            <a className="primary-nav__link col col--md-7 col--lg-9" href="/">Home</a>
+                            <a className="primary-nav__link col col--md-7 col--lg-9" href="/dp-census-alpha-frontend-poc">Home</a>
                         </li>
                         <li className="primary-nav__item js-nav">
                             <a className="primary-nav__link  col col--md-8 col--lg-10" href="/census">
