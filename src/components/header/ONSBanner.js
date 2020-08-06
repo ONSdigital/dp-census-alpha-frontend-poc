@@ -1,6 +1,5 @@
 import React from 'react';
 import '../../styles/App.css';
-import censusLogo from "../../assets/Census2021_whiteback.png";
 
 export class ONSBanner extends React.Component {
 

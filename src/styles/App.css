@@ -206,12 +206,80 @@
     }
 }
 
-.homepage{
+.missing-page-homepage {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 63vh;
     font-size: 30px;
+}
+
+.missing-page-publications {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 48vh;
+    font-size: 30px;
+}
+
+.tabbar {
+    background-color: #414042;
+    padding-top: 30px;
+    box-sizing: border-box;
+}
+
+.tab {
+    display: inline-block;
+    vertical-align: bottom;
+    /*float: left;*/
+    background-color: #58595B;
+
+    cursor: pointer;
+    margin-right: 20px;
+    width: 220px;
+    color: white;
+    height: 40px;
+}
+
+.tab-active {
+    background-color: white;
+    color: black;
+    height: 50px;
+    width: 230px;
+}
+
+.tab-button {
+    font-size: 20px;
+    border: none;
+    outline: none;
+    color: white;
+    background-color: #58595B;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+
+}
+
+.tab-button-active {
+    background-color: white;
+    color: black;
+}
+
+.results-found {
+    margin-top: 40px;
+}
+
+.sort-options {
+    float: right;
+}
+
+.sort-options-label {
+    padding-right: 10px
+}
+
+.sort-options-select {
+    padding: 5px 80px 5px 10px;
 }
 
 body {
