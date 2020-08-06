@@ -282,6 +282,39 @@
     padding: 5px 80px 5px 10px;
 }
 
+.filter-title {
+    font-weight: bold;
+}
+
+.filter-root-title {
+    color: #206095;
+    cursor: pointer;
+}
+
+.up-arrow{
+    position: relative;
+    top:1px;
+    border: solid black;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 4px;
+    margin-right: 15px;
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+
+.down-arrow{
+    position: relative;
+    bottom:4px;
+    border: solid black;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 4px;
+    margin-right: 15px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
 body {
     font-family: "Open Sans", Helvetica, Arial, sans-serif
 }

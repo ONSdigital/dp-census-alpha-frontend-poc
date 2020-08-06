@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../styles/App.css';
 import {SortBox} from "../SortBox";
-import {FilterMenu} from "../FilterMenu";
+import {FilterMenu} from "../filter/FilterMenu";
 
 export class DataTab extends React.Component {
 
