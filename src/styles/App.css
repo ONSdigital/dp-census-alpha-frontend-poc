@@ -299,6 +299,7 @@
     display: inline-block;
     padding: 4px;
     margin-right: 15px;
+    margin-left: 5px;
     transform: rotate(-135deg);
     -webkit-transform: rotate(-135deg);
 }
@@ -311,6 +312,7 @@
     display: inline-block;
     padding: 4px;
     margin-right: 15px;
+    margin-left: 5px;
     transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
 }
@@ -321,8 +323,9 @@
     padding-top: 10px;
 
 }
+
 @media (max-width: 992px) {
-    .selected-filter-panel{
+    .selected-filter-panel {
         width: 636px;
     }
 }
@@ -333,6 +336,27 @@
     position: relative;
     float: left;
     width: 636px;
+    line-height: 42px;
+}
+
+.checkbox-dimensions {
+    width: 20px;
+    height: 20px;
+    padding-left: 0;
+    margin-left: 0;
+    margin-right: 10px;
+}
+
+.checkbox-topic {
+    width: 20px;
+    height: 20px;
+    padding-left: 0;
+    margin-left: 0;
+    margin-right: 10px;
+}
+
+.filters__item {
+    margin-top: 10px;
 }
 
 body {

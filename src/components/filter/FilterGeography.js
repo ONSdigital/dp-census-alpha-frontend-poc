@@ -47,7 +47,7 @@ export class FilterGeography extends React.Component {
             <fieldset className="filters__fieldset">
                 <legend className="filters__sub-title font-size--18 filter-root-title" onClick={() => {
                     this.toggleGeography()
-                }}><i className={this.state.showGeography ? "up-arrow" : "down-arrow"}/><span>Geographic areas</span>
+                }}><i className={this.state.showGeography ? "up-arrow" : "down-arrow"}/><span>Output area types</span>
                 </legend>
                 <div className="js-checkbox-container">
                     <ul className="list--neutral margin-top--0 margin-bottom--0">

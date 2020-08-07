@@ -12,7 +12,8 @@ export class Results extends React.Component {
                     <a onClick={() => {
                         this.props.parentSearch(singleResult.location)
                     }}
-                       className={"pointer"}>
+                       className={"pointer"}
+                    href={"#"}>
                         {singleResult.name}
                         <p className="search-results__meta">
                             Code: {singleResult.code}<br/>

@@ -12,6 +12,9 @@ export class SelectedSearchFilters extends React.Component {
     }
 
     render() {
+        if (this.props.filters.length < 1) {
+            return null;
+        }
         let selectedFilters = this.props.filters.map((filter, index) => {
             let isLast = (this.props.filters.length - 1 === index)
             return <span>{this.removableItem(filter.name, filter.value, isLast)}</span>

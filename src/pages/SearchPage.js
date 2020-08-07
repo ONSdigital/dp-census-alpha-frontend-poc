@@ -35,10 +35,12 @@ export class SearchPage extends React.Component {
         // TODO change TabArea vars
         const params = new URLSearchParams(this.props.location.search);
         const searchString = params.get('q');
-        return <div>
+        return <div className="page-container">
             <Header/>
-            <SearchBar searchString={searchString}/>
-            <TabArea dataResults={0} areaResults={0} publicationResults={0} searchString={searchString}/>
+            <div className="content">
+                <SearchBar searchString={searchString}/>
+                <TabArea dataResults={0} areaResults={0} publicationResults={0} searchString={searchString}/>
+            </div>
             <Footer/>
         </div>
     }

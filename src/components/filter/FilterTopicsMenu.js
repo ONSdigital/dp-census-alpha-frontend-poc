@@ -17,27 +17,59 @@ export class FilterTopicsMenu extends React.Component {
         if (!this.state.showTopics) {
             return null;
         }
-        return <li
-            className={"filters__item"}>
-            <div className="filters__field">
-                <input id={`checkbox-topic`}
-                       className="js-auto-submit__input"
-                       type="radio"
-                       name="filter-topics" value={"All"}
-                       checked={true}
-                       onChange={(e) => {
-                           this.checkChanged(e)
-                       }}
-                />
-                <label htmlFor={`checkbox-topic`} className={"font-size--18"}>
-                    All topics
-                </label>
-            </div>
-            {/*<ul className={`list--neutral margin-top--0 margin-bottom--0 ${rootTopic.selected ? "" : "hide"}`}*/}
-            {/*    style={listTabStyle}>*/}
-            {/*    {childList}*/}
-            {/*</ul>*/}
-        </li>;
+        let refinementSelectedRoot = false;
+        let topics = this.props.topics.map((rootTopic) => {
+            if(rootTopic.selected){
+                refinementSelectedRoot = true;
+            }
+            return <li
+                className={"filters__item"}
+            key={`checkbox-topic-${rootTopic.filterable_title}`}>
+                <div className="filters__field">
+                    <input id={`checkbox-topic-${rootTopic.filterable_title}`}
+                           className="js-auto-submit__input checkbox-topic"
+                           type="radio"
+                           name="filter-topics" value={rootTopic.filterable_title}
+                           checked={rootTopic.selected}
+                           onChange={(e) => {
+                               this.props.checkChanged(e.target.value)
+                           }}
+                    />
+                    <label htmlFor={`checkbox-topic-${rootTopic.filterable_title}`} className={"font-size--18"}>
+                        {rootTopic.title}
+                    </label>
+                </div>
+                {/*<ul className={`list--neutral margin-top--0 margin-bottom--0 ${rootTopic.selected ? "" : "hide"}`}*/}
+                {/*    style={listTabStyle}>*/}
+                {/*    {childList}*/}
+                {/*</ul>*/}
+            </li>
+        });
+        return (<ul className="list--neutral margin-top--0 margin-bottom--0">
+            <li
+                className={"filters__item"}
+                key={`checkbox-topic-all`}>
+                <div className="filters__field">
+                    <input id={`checkbox-topic-all`}
+                           className="js-auto-submit__input checkbox-topic"
+                           type="radio"
+                           name="filter-topics" value={"All"}
+                           checked={!refinementSelectedRoot}
+                           onChange={(e) => {
+                               this.props.checkChanged(e.target.value)
+                           }}
+                    />
+                    <label htmlFor={`checkbox-topic-all`} className={"font-size--18"}>
+                        All topics
+                    </label>
+                </div>
+                {/*<ul className={`list--neutral margin-top--0 margin-bottom--0 ${rootTopic.selected ? "" : "hide"}`}*/}
+                {/*    style={listTabStyle}>*/}
+                {/*    {childList}*/}
+                {/*</ul>*/}
+            </li>
+            {topics}
+        </ul>)
     }
 
     render() {
@@ -49,9 +81,7 @@ export class FilterTopicsMenu extends React.Component {
             }}><i className={this.state.showTopics ? "up-arrow" : "down-arrow"}/><span>Topics</span>
             </legend>
             <div className="js-checkbox-container">
-                <ul className="list--neutral margin-top--0 margin-bottom--0">
-                    {topicFilterList}
-                </ul>
+                {topicFilterList}
             </div>
         </fieldset>
     }

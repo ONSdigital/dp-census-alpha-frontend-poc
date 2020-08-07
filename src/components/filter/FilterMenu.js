@@ -18,12 +18,9 @@ export class FilterMenu extends React.Component {
                         <div
                             className="background--mercury border-top--iron-md padding-top-sm--2 padding-top-md--1 padding-right-sm--1 padding-right-md--1 padding-bottom-sm--2 padding-bottom-md--2 padding-left-sm--1 padding-left-md--1 js-mobile-filters__contents">
                             <div className="filters js-filters">
-                                <FilterTopicsMenu/>
-                                <FilterDimensionMenu/>
+                                <FilterTopicsMenu topics={this.props.topics} checkChanged={this.props.checkChangedTopics}/>
+                                <FilterDimensionMenu dimensions={this.props.dimensions} checkChanged={this.props.checkChangedDimensions}/>
                                 <FilterGeography/>
-                                {/*<DimMenu dimensions={this.props.dimensions}*/}
-                                {/*         dimensionsSelectionChanged={this.props.dimensionsSelectionChanged}*/}
-                                {/*         clearAllDimensions={this.props.clearAllDimensions}/>*/}
                                 <input className="sort__input" type="hidden" name="q" value="test"/>
                             </div>
                         </div>

@@ -3,6 +3,6 @@ import '../styles/App.css';
 export class DatasetLandingPage extends React.Component {
 
     render() {
-        return <div></div>
+        return <div className="page-container"></div>
     }
 }
