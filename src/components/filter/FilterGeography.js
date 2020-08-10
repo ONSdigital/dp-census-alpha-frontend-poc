@@ -21,7 +21,7 @@ export class FilterGeography extends React.Component {
             className={"filters__item"}>
             <div className="filters__field">
                 <input id={`checkbox-geography`}
-                       className="js-auto-submit__input"
+                       className="js-auto-submit__input checkbox-geography"
                        type="radio"
                        name="filter-geography" value={"All"}
                        checked={true}

@@ -55,16 +55,30 @@ export class SelectedSearchFilters extends React.Component {
         </div>
     }
 
+    createSelectedGeography() {
+        if (this.props.filterGeographies.length < 1) {
+            return null;
+        }
+        let listOfSelectedGeography = this.props.filterGeographies.map((filter, index) => {
+            return null;
+        });
+        return <div className={"padding-left--1 padding-top--1 padding-bottom--1"}>
+            <b>Availability</b> {listOfSelectedGeography}
+        </div>
+    }
+
     render() {
         if (this.props.filterTopics.length < 1 && this.props.filterDimensions.length < 1) {
             return null;
         }
         let selectedTopics = this.createSelectedTopics();
         let selectedDimensions = this.createSelectedDimensions();
+        let selectedGeography = this.createSelectedGeography();
         return (
             <div className={"selected-filter-panel font-size--18"}>
                 {selectedTopics}
                 {selectedDimensions}
+                {selectedGeography}
 
             </div>
 

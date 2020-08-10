@@ -4,6 +4,7 @@ import {SortBox} from "../SortBox";
 import {FilterMenu} from "../filter/FilterMenu";
 import {Results} from "../Results";
 import {SelectedSearchFilters} from "../filter/SelectedSearchFilters";
+import {CustomTableOpt} from "../CustomTableOpt";
 import {makeRequest} from "../../helpers/API";
 
 export class DataTab extends React.Component {
@@ -141,6 +142,7 @@ export class DataTab extends React.Component {
         if (!this.props.show) {
             return null;
         }
+        let showCustomTableOpt = true//this.state.results != null && this.state.results.length < 4 TODO put back
 
         return <div className={"results-found"}>
             <div>
@@ -154,6 +156,7 @@ export class DataTab extends React.Component {
                     <SelectedSearchFilters
                         filterTopics={this.state.filter}
                         filterDimensions={this.state.dimensions.items}
+                        filterGeographies={[]} // TODO add geography
                         removeFilterTopic={(value) => {
                             this.removeFilterTopic(value)
                         }}
@@ -161,6 +164,7 @@ export class DataTab extends React.Component {
                             this.removeFilterDimension(value)
                         }}/>
                     <Results/>
+                    <CustomTableOpt/>
                 </div>
             </div>
         </div>

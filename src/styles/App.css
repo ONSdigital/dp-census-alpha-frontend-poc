@@ -355,11 +355,31 @@
     margin-right: 10px;
 }
 
-.topic-group{
+.checkbox-geography {
+    width: 20px;
+    height: 20px;
+    padding-left: 0;
+    margin-left: 0;
+    margin-right: 10px;
+}
+
+.topic-group {
     margin-left: 8px;
     border-left-color: #58595B;
     border-left-width: 3px;
     border-left-style: solid;
+    text-overflow: ellipsis;
+}
+
+.custom-table-opt-box {
+    font-size: 18px;
+    margin-left: 20px;
+    position: relative;
+    float: left;
+    width: 636px;
+    line-height: 42px;
+    padding: 20px;
+    border: #EAEAEA 5px solid;
 }
 
 .filters__item {

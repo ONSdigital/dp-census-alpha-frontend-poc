@@ -14,15 +14,25 @@ export class FilterTopicsMenu extends React.Component {
     }
 
     createGrandChildTopics(rootTopic, selectedChildTopic) {
-        let show = (selectedChildTopic != null && selectedChildTopic.child_topics != null && selectedChildTopic.child_topics.length > 1);
+        let show = (selectedChildTopic != null && selectedChildTopic.child_topics != null && selectedChildTopic.child_topics.length > 0);
         if (!show) {
             return null;
         }
+        let options = selectedChildTopic.child_topics.map((grandChildTopic) => {
+            return <option className={"font-size--18"}
+                           value={grandChildTopic.filterable_title}>{grandChildTopic.title}</option>
+        })
+
         return (<div className={"topic-group"}>
             <select className={"font-size--18 margin-left--1 col--md-14"}
                     name={`topic-${rootTopic.filterable_title}-grandchild`}
-                    id={`topic-${rootTopic.filterable_title}-grandchild`}>
+                    id={`topic-${rootTopic.filterable_title}-grandchild`}
+                    onChange={(e) => {
+                        let topicLevel = 2;
+                        this.props.checkChanged(e.target.value, topicLevel)
+                    }}>
                 <option className={"font-size--18"} value="all">All sub topics</option>
+                {options}
             </select>
         </div>)
     }
@@ -32,7 +42,7 @@ export class FilterTopicsMenu extends React.Component {
             return null;
         }
         let options = rootTopic.child_topics.map((childTopic) => {
-            return <option className={"font-size--18"} value={childTopic.filterable_tilte}>{childTopic.title}</option>
+            return <option className={"font-size--18"} value={childTopic.filterable_title}>{childTopic.title}</option>
         })
         let selectedChildTopic = null;
         rootTopic.child_topics.forEach((childTopic) => {
@@ -48,7 +58,7 @@ export class FilterTopicsMenu extends React.Component {
                         id={`topic-${rootTopic.filterable_title}`}
                         onChange={(e) => {
                             let topicLevel = 1;
-                            this.props.checkChanges(e.target.value, topicLevel)
+                            this.props.checkChanged(e.target.value, topicLevel)
                         }}>
                     <option className={"font-size--18"} value="all">All sub topics</option>
                     {options}
