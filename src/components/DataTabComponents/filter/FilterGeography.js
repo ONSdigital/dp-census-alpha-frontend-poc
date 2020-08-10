@@ -28,8 +28,8 @@ export class FilterGeography extends React.Component {
                 className={"filters__item"}
                 key={geo.name}>
                 <div className="filters__field">
-                    <input id={`checkbox-geography-${geo.name}`}
-                           className="js-auto-submit__input checkbox-geography"
+                    <input id={`radio-geography-${geo.name}`}
+                           className="js-auto-submit__input radio-geography"
                            type="radio"
                            name="filter-geography" value={geo.name}
                            checked={geo.selected}
@@ -37,7 +37,7 @@ export class FilterGeography extends React.Component {
                                this.props.checkChanged(e.target.value, e.target.checked);
                            }}
                     />
-                    <label htmlFor={`checkbox-geography-${geo.name}`} className={"font-size--18"}>
+                    <label htmlFor={`radio-geography-${geo.name}`} className={"font-size--18"}>
                         {geo.label}
                     </label>
                 </div>
@@ -45,19 +45,20 @@ export class FilterGeography extends React.Component {
         })
 
         return <ul className="list--neutral margin-top--0 margin-bottom--0">
+            <p>Show data available at:</p>
             <li
                 className={"filters__item"}>
                 <div className="filters__field">
-                    <input id={`checkbox-geography`}
-                           className="js-auto-submit__input checkbox-geography"
+                    <input id={`radio-geography`}
+                           className="js-auto-submit__input radio-geography"
                            type="radio"
                            name="filter-geography" value={"all"}
                            checked={!geographyRefinementSelected}
                            onChange={(e) => {
-                               this.checkChanged(e)
+                               this.props.checkChanged("all")
                            }}
                     />
-                    <label htmlFor={`checkbox-geography`} className={"font-size--18"}>
+                    <label htmlFor={`radio-geography`} className={"font-size--18"}>
                         All geographical areas
                     </label>
                 </div>
@@ -75,7 +76,7 @@ export class FilterGeography extends React.Component {
                     this.toggleGeography()
                 }}><i className={this.state.showGeography ? "up-arrow" : "down-arrow"}/><span>Output area types</span>
                 </legend>
-                <div className="js-checkbox-container">
+                <div className="js-radio-container">
                     {geographyFilterList}
                 </div>
             </fieldset>

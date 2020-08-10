@@ -55,7 +55,8 @@ export class TabArea extends React.Component {
             </div>
             <div className={"wrapper"}>
                 <DataTab show={this.state.activeTab === 0} searchString={this.props.searchString}
-                         totalResults={totalDataResults}/>
+                         totalResults={totalDataResults} pageNum={this.props.pageNum}
+                         requestSearch={this.props.requestSearch}/>
                 <AreasTab show={this.state.activeTab === 1}/>
                 <PublicationsTab show={this.state.activeTab === 2}/>
             </div>

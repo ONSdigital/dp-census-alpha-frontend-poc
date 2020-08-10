@@ -9,7 +9,8 @@ import {GeoSnapshot} from "../DataTabComponents/GeoSnapshot";
 import {makeRequest} from "../../helpers/API";
 
 export class DataTab extends React.Component {
-
+//TODO
+// Search on change of any filters
     constructor(props) {
         super(props);
         this.state = {
@@ -30,9 +31,12 @@ export class DataTab extends React.Component {
                 ]
             },
             topics: {},
-            filter: []
+            filter: [],
+            pageNum: 0
         }
         this.removeFilterTopic = this.removeFilterTopic.bind(this);
+        this.removeFilterDimension = this.removeFilterDimension.bind(this);
+        this.removeGeographyDimension = this.removeGeographyDimension.bind(this);
         this.submitTopicsRequest = this.submitTopicsRequest.bind(this);
         this.getTopics = this.getTopics.bind(this);
         this.submitDimensionsRequest = this.submitDimensionsRequest.bind(this);
@@ -40,6 +44,7 @@ export class DataTab extends React.Component {
         this.checkChangedDimensions = this.checkChangedDimensions.bind(this);
         this.checkChangedTopics = this.checkChangedTopics.bind(this);
         this.checkChangedGeographies = this.checkChangedGeographies.bind(this);
+        this.newSearch = this.newSearch.bind(this);
     }
 
     componentDidMount() {
@@ -79,7 +84,9 @@ export class DataTab extends React.Component {
                 dim.selected = checked
             }
         })
-        this.setState({dimensions: dimensions})
+        this.setState({dimensions: dimensions}, ()=>{
+            this.newSearch();
+        })
     }
 
     checkChangedGeographies(name, checked) {
@@ -87,7 +94,9 @@ export class DataTab extends React.Component {
         geographies.items.forEach((geo) => {
             geo.selected = (geo.name === name)
         })
-        this.setState({geographies: geographies})
+        this.setState({geographies: geographies}, ()=>{
+            this.newSearch();
+        })
     }
 
     checkChangedTopics(name, level) {
@@ -106,7 +115,9 @@ export class DataTab extends React.Component {
             topics.forEach((topic) => {
                 clearAllTopics(topic);
             })
-            this.setState({topics: topics, filter: filters})
+            this.setState({topics: topics, filter: filters}, ()=>{
+                this.newSearch();
+            })
             return;
         }
         topics.forEach((topic) => {
@@ -137,7 +148,9 @@ export class DataTab extends React.Component {
 
             }
         })
-        this.setState({topics: topics, filter: filters})
+        this.setState({topics: topics, filter: filters}, ()=>{
+            this.newSearch();
+        })
     }
 
     removeFilterTopic(value) {
@@ -174,18 +187,21 @@ export class DataTab extends React.Component {
         topics.forEach((topic) => {
             findAndDeselectTopic(topic, value);
         })
-        this.setState({topics: topics, filter: filter})
+        this.setState({topics: topics, filter: filter}, ()=>{
+            this.newSearch();
+        })
     }
 
     removeFilterDimension(name) {
         let dimensions = this.state.dimensions;
         dimensions.items.forEach((singleDimension) => {
             if (name === singleDimension.name) {
-                dimensions.selected = false;
+                singleDimension.selected = false;
             }
         })
-        this.setState({dimensions: dimensions})
-
+        this.setState({dimensions: dimensions}, ()=>{
+            this.newSearch();
+        })
     }
 
     removeGeographyDimension(name) {
@@ -195,7 +211,29 @@ export class DataTab extends React.Component {
                 singleGeography.selected = false;
             }
         })
-        this.setState({geographies: geographies})
+        this.setState({geographies: geographies}, ()=>{
+            this.newSearch();
+        })
+    }
+
+    newSearch() {
+        let dimensions = [];
+        this.state.dimensions.items.forEach((item) => {
+            if (item.selected) {
+                dimensions.push(item.name);
+            }
+        })
+        let topics = []
+        this.state.filter.forEach((topic) => {
+            topics.push(topic.value)
+        })
+        let hierarchies = []
+        this.state.geographies.items.forEach((item) => {
+            if (item.selected) {
+                hierarchies.push(item.name);
+            }
+        })
+        this.props.requestSearch(dimensions, topics, hierarchies, this.state.pageNum);
     }
 
     render() {
