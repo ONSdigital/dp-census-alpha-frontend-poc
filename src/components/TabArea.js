@@ -7,8 +7,8 @@ import {PublicationsTab} from "./tabs/PublicationsTab";
 
 export class TabArea extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {"activeTab": 0}
         this.changeTab = this.changeTab.bind(this);
     }

@@ -8,8 +8,8 @@ import {TabArea} from "../components/TabArea";
 
 export class SearchPage extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {"searchString": ""};
         this.handleSearch = this.handleSearch.bind(this);
     }

@@ -3,8 +3,8 @@ import '../../styles/App.css';
 
 export class FilterTopicsMenu extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {"showTopics": false};
         this.toggleTopics = this.toggleTopics.bind(this);
     }
@@ -27,6 +27,7 @@ export class FilterTopicsMenu extends React.Component {
             <select className={"topic-selection-box font-size--18 margin-left--1 col--md-14"}
                     name={`topic-${rootTopic.filterable_title}-grandchild`}
                     id={`topic-${rootTopic.filterable_title}-grandchild`}
+                    defaultValue={"all"}
                     onChange={(e) => {
                         let topicLevel = 2;
                         this.props.checkChanged(e.target.value, topicLevel)
@@ -56,6 +57,7 @@ export class FilterTopicsMenu extends React.Component {
                 <select className={"topic-selection-box font-size--18 margin-left--1 col--md-14"}
                         name={`topic-${rootTopic.filterable_title}`}
                         id={`topic-${rootTopic.filterable_title}`}
+                        defaultValue={"all"}
                         onChange={(e) => {
                             let topicLevel = 1;
                             this.props.checkChanged(e.target.value, topicLevel)

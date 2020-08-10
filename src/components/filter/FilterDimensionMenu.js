@@ -3,8 +3,8 @@ import '../../styles/App.css';
 
 export class FilterDimensionMenu extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {"showDimensions": false};
         this.toggleDimensions = this.toggleDimensions.bind(this);
     }

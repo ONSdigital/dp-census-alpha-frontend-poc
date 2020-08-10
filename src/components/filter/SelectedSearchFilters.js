@@ -14,6 +14,10 @@ export class SelectedSearchFilters extends React.Component {
             return <span className={"font-size--22"}><button className={"font-size--18"} onClick={() => {
                 this.props.removeFilterDimension(value)
             }}><b className={"font-size--22"}>✕ </b> {name}</button></span>
+        } else if (type === "geography") {
+            return <span className={"font-size--22"}><button className={"font-size--18"} onClick={() => {
+                this.props.removeGeographyDimension(value)
+            }}><b className={"font-size--22"}>✕ </b> {name}</button></span>
         } else {
             return null
         }
@@ -59,12 +63,23 @@ export class SelectedSearchFilters extends React.Component {
         if (this.props.filterGeographies.length < 1) {
             return null;
         }
-        let listOfSelectedGeography = this.props.filterGeographies.map((filter, index) => {
-            return null;
+        let geoSelected = false;
+        let listOfSelectedGeography = this.props.filterGeographies.items.map((filter, index) => {
+            if (filter.selected) {
+                geoSelected = true;
+                return <span>{this.removableItem(filter.label, filter.name, false, "geography")}</span>
+            } else {
+                return null;
+            }
         });
-        return <div className={"padding-left--1 padding-top--1 padding-bottom--1"}>
-            <b>Availability</b> {listOfSelectedGeography}
-        </div>
+        if (geoSelected) {
+            return <div className={"padding-left--1 padding-top--1 padding-bottom--1"}>
+                <b>Availability</b> {listOfSelectedGeography}
+            </div>
+        } else {
+            return null;
+        }
+
     }
 
     render() {

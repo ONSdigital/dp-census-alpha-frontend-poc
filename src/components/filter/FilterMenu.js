@@ -20,7 +20,7 @@ export class FilterMenu extends React.Component {
                             <div className="filters js-filters">
                                 <FilterTopicsMenu topics={this.props.topics} checkChanged={this.props.checkChangedTopics}/>
                                 <FilterDimensionMenu dimensions={this.props.dimensions} checkChanged={this.props.checkChangedDimensions}/>
-                                <FilterGeography/>
+                                <FilterGeography geographies={this.props.geographies} checkChanged={this.props.checkChangedGeographies}/>
                                 <input className="sort__input" type="hidden" name="q" value="test"/>
                             </div>
                         </div>
