@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/App.css';
+import '../../../styles/App.css';
 
 export class FilterTopicsMenu extends React.Component {
 
@@ -22,12 +22,20 @@ export class FilterTopicsMenu extends React.Component {
             return <option className={"font-size--18"}
                            value={grandChildTopic.filterable_title}>{grandChildTopic.title}</option>
         })
+        let selectedGrandChild = null;
+        selectedChildTopic.child_topics.forEach((grandChildTopic) => {
+            if (grandChildTopic.selected) {
+                selectedGrandChild = grandChildTopic;
+            }
+        })
+        let selectedValue = selectedGrandChild == null ? "all" : selectedGrandChild.filterable_title
 
         return (<div className={"topic-group"}>
             <select className={"topic-selection-box font-size--18 margin-left--1 col--md-14"}
                     name={`topic-${rootTopic.filterable_title}-grandchild`}
                     id={`topic-${rootTopic.filterable_title}-grandchild`}
                     defaultValue={"all"}
+                    value={selectedValue}
                     onChange={(e) => {
                         let topicLevel = 2;
                         this.props.checkChanged(e.target.value, topicLevel)
@@ -51,13 +59,16 @@ export class FilterTopicsMenu extends React.Component {
                 selectedChildTopic = childTopic
             }
         })
+        let selectedValue = selectedChildTopic == null ? "all" : selectedChildTopic.filterable_title
         let grandChildTopics = this.createGrandChildTopics(rootTopic, selectedChildTopic);
+
         return (<div>
             <div className={"topic-group"}>
                 <select className={"topic-selection-box font-size--18 margin-left--1 col--md-14"}
                         name={`topic-${rootTopic.filterable_title}`}
                         id={`topic-${rootTopic.filterable_title}`}
                         defaultValue={"all"}
+                        value={selectedValue}
                         onChange={(e) => {
                             let topicLevel = 1;
                             this.props.checkChanged(e.target.value, topicLevel)
@@ -110,7 +121,7 @@ export class FilterTopicsMenu extends React.Component {
                     <input id={`checkbox-topic-all`}
                            className="js-auto-submit__input checkbox-topic"
                            type="radio"
-                           name="filter-topics" value={"All"}
+                           name="filter-topics" value={"all"}
                            checked={!refinementSelectedRoot}
                            onChange={(e) => {
                                this.props.checkChanged(e.target.value)

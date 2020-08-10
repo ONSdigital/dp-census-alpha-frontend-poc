@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/App.css';
+import '../../../styles/App.css';
 import {FilterTopicsMenu} from "./FilterTopicsMenu"
 import {FilterDimensionMenu} from "./FilterDimensionMenu";
 import {FilterGeography} from "./FilterGeography";

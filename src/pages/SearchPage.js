@@ -39,7 +39,12 @@ export class SearchPage extends React.Component {
             <Header/>
             <div className="content">
                 <SearchBar searchString={searchString}/>
-                <TabArea dataResults={0} areaResults={0} publicationResults={0} searchString={searchString}/>
+                <TabArea dataResults={0} areaResults={0} publicationResults={0} searchString={searchString}
+                         requestSearch={(searchString, offset, dimensions, topics, hierarchies) => {
+                             //TODO make use of the others when API available
+                             this.setState({searchString: searchString})
+                             this.handleSearch();
+                         }}/>
             </div>
             <Footer/>
         </div>

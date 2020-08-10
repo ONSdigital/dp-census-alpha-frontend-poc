@@ -1,10 +1,11 @@
 import React from 'react';
 import '../../styles/App.css';
-import {SortBox} from "../SortBox";
-import {FilterMenu} from "../filter/FilterMenu";
-import {Results} from "../Results";
-import {SelectedSearchFilters} from "../filter/SelectedSearchFilters";
-import {CustomTableOpt} from "../CustomTableOpt";
+import {SortBox} from "../DataTabComponents/SortBox";
+import {FilterMenu} from "../DataTabComponents/filter/FilterMenu";
+import {Results} from "../DataTabComponents/Results";
+import {SelectedSearchFilters} from "../DataTabComponents/filter/SelectedSearchFilters";
+import {CustomTableOpt} from "../DataTabComponents/CustomTableOpt";
+import {GeoSnapshot} from "../DataTabComponents/GeoSnapshot";
 import {makeRequest} from "../../helpers/API";
 
 export class DataTab extends React.Component {
@@ -90,9 +91,24 @@ export class DataTab extends React.Component {
     }
 
     checkChangedTopics(name, level) {
-        // TODO this only works on top level topics
+
         let topics = this.state.topics;
         let filters = []
+        let clearAllTopics = (topic) => {
+            topic.selected = false;
+            if (topic.child_topics != null) {
+                topic.child_topics.forEach((childTopic) => {
+                    clearAllTopics(childTopic)
+                })
+            }
+        }
+        if (name === "all") {
+            topics.forEach((topic) => {
+                clearAllTopics(topic);
+            })
+            this.setState({topics: topics, filter: filters})
+            return;
+        }
         topics.forEach((topic) => {
             if (level === 0) {
                 topic.selected = (topic.filterable_title === name)
@@ -187,6 +203,14 @@ export class DataTab extends React.Component {
             return null;
         }
         let showCustomTableOpt = this.state.results == null || this.state.results.length < 4
+        let showGeoArea = false;
+        let area = null
+        let areaCount = 0;
+        if (this.results != null && this.results.area_profiles != null && this.results.area_profiles.items != null && this.results.area_profiles.items[0] != null) {
+            showGeoArea = true;
+            area = this.results.area_profiles.items[0];
+            areaCount = this.results.area_profiles.count;
+        }
 
         return <div className={"results-found"}>
             <div>
@@ -213,6 +237,7 @@ export class DataTab extends React.Component {
                         removeGeographyDimension={(value) => {
                             this.removeGeographyDimension(value)
                         }}/>
+                    <GeoSnapshot show={showGeoArea} area={area} count={areaCount}/>
                     <Results/>
                     <CustomTableOpt show={showCustomTableOpt}/>
                 </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/App.css';
+import '../../../styles/App.css';
 
 export class SelectedSearchFilters extends React.Component {
 
@@ -89,6 +89,7 @@ export class SelectedSearchFilters extends React.Component {
         let selectedTopics = this.createSelectedTopics();
         let selectedDimensions = this.createSelectedDimensions();
         let selectedGeography = this.createSelectedGeography();
+        //TODO visual lines between all categories
         return (
             <div className={"selected-filter-panel font-size--18"}>
                 {selectedTopics}
