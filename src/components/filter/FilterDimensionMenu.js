@@ -17,11 +17,7 @@ export class FilterDimensionMenu extends React.Component {
         if (!this.state.showDimensions) {
             return null;
         }
-        let refinementSelected = false;
         let dimensionOptions = this.props.dimensions.items.map((dim) => {
-            if (dim.selected) {
-                refinementSelected = true;
-            }
             return <li
                 className={"filters__item"}
                 key={dim.name}
@@ -29,11 +25,11 @@ export class FilterDimensionMenu extends React.Component {
                 <div className="filters__field">
                     <input id={`checkbox-dimension-${dim.name}`}
                            className="js-auto-submit__input checkbox-dimensions"
-                           type="radio"
+                           type="checkbox"
                            name="filter-dimensions" value={dim.name}
                            checked={dim.selected}
                            onChange={(e) => {
-                               this.props.checkChanged(e.target.value)
+                               this.props.checkChanged(e.target.value, e.target.checked);
                            }}
                     />
                     <label htmlFor={`checkbox-dimension-${dim.name}`} className={"font-size--18"}>
@@ -43,24 +39,7 @@ export class FilterDimensionMenu extends React.Component {
             </li>
         })
         return (<ul className="list--neutral margin-top--0 margin-bottom--0">
-            <li
-                key={"all"}
-                className={"filters__item"}>
-                <div className="filters__field">
-                    <input id={`checkbox-dimension-all`}
-                           className="js-auto-submit__input checkbox-dimensions"
-                           type="radio"
-                           name="filter-dimensions" value={"All"}
-                           checked={!refinementSelected}
-                           onChange={(e) => {
-                               this.props.checkChanged(e.target.value)
-                           }}
-                    />
-                    <label htmlFor={`checkbox-dimension-all`} className={"font-size--18"}>
-                        All dataset variables
-                    </label>
-                </div>
-            </li>
+            <p>Selecting a dimension will filter tables to those only containing that dimension.</p>
             {dimensionOptions}
         </ul>);
     }

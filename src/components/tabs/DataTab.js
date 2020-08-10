@@ -11,14 +11,11 @@ export class DataTab extends React.Component {
     constructor() {
         super();
         this.state = {
-            dimensions: {},
+            dimensions: {items: []},
             topics: {},
-            filter: [
-                {name: "People, population and community", value: "peoplepopulationandcommunity"},
-                {name: "Cultural identity", value: "cultrualidentity"},
-                {name: "Ethnicity", value: "ethnicity"}]
+            filter: []
         }
-        this.removeFilter = this.removeFilter.bind(this);
+        this.removeFilterTopic = this.removeFilterTopic.bind(this);
         this.submitTopicsRequest = this.submitTopicsRequest.bind(this);
         this.getTopics = this.getTopics.bind(this);
         this.submitDimensionsRequest = this.submitDimensionsRequest.bind(this);
@@ -57,30 +54,87 @@ export class DataTab extends React.Component {
         });
     }
 
-    checkChangedDimensions(name) {
+    checkChangedDimensions(name, checked) {
         let dimensions = this.state.dimensions;
         dimensions.items.forEach((dim) => {
-            dim.selected = (name === dim.name ? true : false)
+            if (dim.name === name) {
+                dim.selected = checked
+            }
         })
         this.setState({dimensions: dimensions})
     }
 
-    checkChangedTopics(name) {
+    checkChangedTopics(name, level) {
+        // TODO this only works on top level topics
         let topics = this.state.topics;
+        let filters = []
         topics.forEach((topic) => {
-            topic.selected = (topic.filterable_title === name ? true : false)
+            if (level === 0) {
+                topic.selected = (topic.filterable_title === name)
+            }
+            if (topic.selected) {
+                filters.push({name: topic.title, value: topic.filterable_title})
+            }
+            if ((level === 1 || level === 2) && topic.child_topics != null) {
+                topic.child_topics.forEach((childTopic) => {
+                    if (level === 1) {
+                        childTopic.selected = (childTopic.filterable_title === name)
+                    }
+                    if (childTopic.selected) {
+                        filters.push({name: childTopic.title, value: childTopic.filterable_title})
+                    }
+                    if (level === 2 && childTopic.child_topics != null) {
+                        childTopic.child_topics.forEach((grandChildTopic) => {
+                            grandChildTopic.selected = (grandChildTopic.filterable_title === name)
+                            if (grandChildTopic.selected) {
+                                filters.push({name: grandChildTopic.title, value: grandChildTopic.filterable_title})
+                            }
+                        })
+                    }
+
+                })
+
+            }
         })
-        this.setState({topics: topics})
+        this.setState({topics: topics, filter: filters})
     }
 
-    removeFilter(value) {
+    removeFilterTopic(value) {
         let filter = this.state.filter;
         filter.forEach((singleFilter, index) => {
             if (value === singleFilter.value) {
                 filter.splice(index, 1)
             }
         })
-        this.setState({filter: filter})
+        let findAndDeselectTopic = (rootTopic, name) => {
+            if (rootTopic.filterable_title === name) {
+                rootTopic.selected = false;
+                return;
+            }
+            if (rootTopic.child_topics != null) {
+                rootTopic.child_topics.forEach((topic) => {
+                    findAndDeselectTopic(topic, value);
+                })
+            }
+
+        };
+
+        let topics = this.state.topics;
+        topics.forEach((topic) => {
+            findAndDeselectTopic(topic, value);
+        })
+        this.setState({topics: topics, filter: filter})
+    }
+
+    removeFilterDimension(name) {
+        let dimensions = this.state.dimensions;
+        dimensions.items.forEach((singleDimension, index) => {
+            if (name === singleDimension.name) {
+                dimensions.selected = false;
+            }
+        })
+        this.setState({dimensions: dimensions})
+
     }
 
     render() {
@@ -98,9 +152,13 @@ export class DataTab extends React.Component {
                                 checkChangedDimensions={this.checkChangedDimensions}
                                 checkChangedTopics={this.checkChangedTopics}/>
                     <SelectedSearchFilters
-                        filters={this.state.filter}
-                        removeFilter={(value) => {
-                            this.removeFilter(value)
+                        filterTopics={this.state.filter}
+                        filterDimensions={this.state.dimensions.items}
+                        removeFilterTopic={(value) => {
+                            this.removeFilterTopic(value)
+                        }}
+                        removeFilterDimension={(value) => {
+                            this.removeFilterDimension(value)
                         }}/>
                     <Results/>
                 </div>

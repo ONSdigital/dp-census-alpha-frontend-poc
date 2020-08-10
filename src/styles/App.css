@@ -355,6 +355,13 @@
     margin-right: 10px;
 }
 
+.topic-group{
+    margin-left: 8px;
+    border-left-color: #58595B;
+    border-left-width: 3px;
+    border-left-style: solid;
+}
+
 .filters__item {
     margin-top: 10px;
 }

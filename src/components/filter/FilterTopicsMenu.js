@@ -13,18 +13,65 @@ export class FilterTopicsMenu extends React.Component {
         this.setState({"showTopics": !this.state.showTopics})
     }
 
+    createGrandChildTopics(rootTopic, selectedChildTopic) {
+        let show = (selectedChildTopic != null && selectedChildTopic.child_topics != null && selectedChildTopic.child_topics.length > 1);
+        if (!show) {
+            return null;
+        }
+        return (<div className={"topic-group"}>
+            <select className={"font-size--18 margin-left--1 col--md-14"}
+                    name={`topic-${rootTopic.filterable_title}-grandchild`}
+                    id={`topic-${rootTopic.filterable_title}-grandchild`}>
+                <option className={"font-size--18"} value="all">All sub topics</option>
+            </select>
+        </div>)
+    }
+
+    createChildTopics(rootTopic) {
+        if (!rootTopic.selected) {
+            return null;
+        }
+        let options = rootTopic.child_topics.map((childTopic) => {
+            return <option className={"font-size--18"} value={childTopic.filterable_tilte}>{childTopic.title}</option>
+        })
+        let selectedChildTopic = null;
+        rootTopic.child_topics.forEach((childTopic) => {
+            if (childTopic.selected) {
+                selectedChildTopic = childTopic
+            }
+        })
+        let grandChildTopics = this.createGrandChildTopics(rootTopic, selectedChildTopic);
+        return (<div>
+            <div className={"topic-group"}>
+                <select className={"font-size--18 margin-left--1 col--md-14"}
+                        name={`topic-${rootTopic.filterable_title}`}
+                        id={`topic-${rootTopic.filterable_title}`}
+                        onChange={(e) => {
+                            let topicLevel = 1;
+                            this.props.checkChanges(e.target.value, topicLevel)
+                        }}>
+                    <option className={"font-size--18"} value="all">All sub topics</option>
+                    {options}
+                </select>
+            </div>
+            {grandChildTopics}
+        </div>)
+
+    }
+
     makeListModel() {
         if (!this.state.showTopics) {
             return null;
         }
         let refinementSelectedRoot = false;
         let topics = this.props.topics.map((rootTopic) => {
-            if(rootTopic.selected){
+            if (rootTopic.selected) {
                 refinementSelectedRoot = true;
             }
+            let subTopics = this.createChildTopics(rootTopic);
             return <li
                 className={"filters__item"}
-            key={`checkbox-topic-${rootTopic.filterable_title}`}>
+                key={`checkbox-topic-${rootTopic.filterable_title}`}>
                 <div className="filters__field">
                     <input id={`checkbox-topic-${rootTopic.filterable_title}`}
                            className="js-auto-submit__input checkbox-topic"
@@ -32,17 +79,15 @@ export class FilterTopicsMenu extends React.Component {
                            name="filter-topics" value={rootTopic.filterable_title}
                            checked={rootTopic.selected}
                            onChange={(e) => {
-                               this.props.checkChanged(e.target.value)
+                               let topicLevel = 0;
+                               this.props.checkChanged(e.target.value, topicLevel);
                            }}
                     />
                     <label htmlFor={`checkbox-topic-${rootTopic.filterable_title}`} className={"font-size--18"}>
                         {rootTopic.title}
                     </label>
                 </div>
-                {/*<ul className={`list--neutral margin-top--0 margin-bottom--0 ${rootTopic.selected ? "" : "hide"}`}*/}
-                {/*    style={listTabStyle}>*/}
-                {/*    {childList}*/}
-                {/*</ul>*/}
+                {subTopics}
             </li>
         });
         return (<ul className="list--neutral margin-top--0 margin-bottom--0">
@@ -63,10 +108,6 @@ export class FilterTopicsMenu extends React.Component {
                         All topics
                     </label>
                 </div>
-                {/*<ul className={`list--neutral margin-top--0 margin-bottom--0 ${rootTopic.selected ? "" : "hide"}`}*/}
-                {/*    style={listTabStyle}>*/}
-                {/*    {childList}*/}
-                {/*</ul>*/}
             </li>
             {topics}
         </ul>)
