@@ -129,7 +129,7 @@ export class DataTab extends React.Component {
 
     removeFilterDimension(name) {
         let dimensions = this.state.dimensions;
-        dimensions.items.forEach((singleDimension, index) => {
+        dimensions.items.forEach((singleDimension) => {
             if (name === singleDimension.name) {
                 dimensions.selected = false;
             }
@@ -142,7 +142,7 @@ export class DataTab extends React.Component {
         if (!this.props.show) {
             return null;
         }
-        let showCustomTableOpt = true//this.state.results != null && this.state.results.length < 4 TODO put back
+        let showCustomTableOpt = this.state.results == null || this.state.results.length < 4
 
         return <div className={"results-found"}>
             <div>
@@ -164,7 +164,7 @@ export class DataTab extends React.Component {
                             this.removeFilterDimension(value)
                         }}/>
                     <Results/>
-                    <CustomTableOpt/>
+                    <CustomTableOpt show={showCustomTableOpt}/>
                 </div>
             </div>
         </div>

@@ -24,7 +24,7 @@ export class FilterTopicsMenu extends React.Component {
         })
 
         return (<div className={"topic-group"}>
-            <select className={"font-size--18 margin-left--1 col--md-14"}
+            <select className={"topic-selection-box font-size--18 margin-left--1 col--md-14"}
                     name={`topic-${rootTopic.filterable_title}-grandchild`}
                     id={`topic-${rootTopic.filterable_title}-grandchild`}
                     onChange={(e) => {
@@ -53,7 +53,7 @@ export class FilterTopicsMenu extends React.Component {
         let grandChildTopics = this.createGrandChildTopics(rootTopic, selectedChildTopic);
         return (<div>
             <div className={"topic-group"}>
-                <select className={"font-size--18 margin-left--1 col--md-14"}
+                <select className={"topic-selection-box font-size--18 margin-left--1 col--md-14"}
                         name={`topic-${rootTopic.filterable_title}`}
                         id={`topic-${rootTopic.filterable_title}`}
                         onChange={(e) => {

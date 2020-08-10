@@ -368,6 +368,10 @@
     border-left-color: #58595B;
     border-left-width: 3px;
     border-left-style: solid;
+}
+
+.topic-selection-box {
+    overflow: hidden;
     text-overflow: ellipsis;
 }
 

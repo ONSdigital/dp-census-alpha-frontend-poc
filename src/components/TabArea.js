@@ -27,19 +27,35 @@ export class TabArea extends React.Component {
     //@formatter:on
 
     render() {
+        let totalDataResults = 0;
+        let totalAreaResults = 0;
+        let totalPublicationResults = 0;
+        if (this.state.results != null && this.state.results.counts != null) {
+            if (this.state.results.counts.datasets != null) {
+                totalDataResults = this.state.results.counts.datasets;
+            }
+            if (this.state.results.counts.area_profiles != null) {
+                totalAreaResults = this.state.results.counts.area_profiles;
+            }
+            if (this.state.results.counts.publications != null) {
+                totalPublicationResults = this.state.results.counts.publications;
+            }
+        }
         return <div>
             <div className={"tabbar"}>
                 <div className={"wrapper"}>
-                    <Tab count={this.props.dataResults} name={"Data"} active={this.state.activeTab === 0}
+                    <Tab count={totalDataResults} name={"Data"} active={this.state.activeTab === 0}
                          changeTab={this.changeTab}/>
-                    <Tab count={this.props.areaResults} name={"Areas"} active={this.state.activeTab === 1}
+                    <Tab count={totalAreaResults} name={"Areas"} active={this.state.activeTab === 1}
                          changeTab={this.changeTab}/>
-                    <Tab count={this.props.publicationResults} name={"Publications"} active={this.state.activeTab === 2}
+                    <Tab count={totalPublicationResults} name={"Publications"}
+                         active={this.state.activeTab === 2}
                          changeTab={this.changeTab}/>
                 </div>
             </div>
             <div className={"wrapper"}>
-                <DataTab show={this.state.activeTab === 0} searchString={this.props.searchString} totalResults={10}/>
+                <DataTab show={this.state.activeTab === 0} searchString={this.props.searchString}
+                         totalResults={totalDataResults}/>
                 <AreasTab show={this.state.activeTab === 1}/>
                 <PublicationsTab show={this.state.activeTab === 2}/>
             </div>

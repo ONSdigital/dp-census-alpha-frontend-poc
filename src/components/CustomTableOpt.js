@@ -3,9 +3,9 @@ import '../styles/App.css';
 
 export class CustomTableOpt extends React.Component {
     render() {
-        // if (!this.props.show) {
-        //     return null;
-        // }
+        if (!this.props.show) {
+            return null;
+        }
         return (<div className={"custom-table-opt-box font-size--18"}>
             <b>Can't find the right dataset?</b>
             <p className={"font-size--18"}>Using the 2021 Census data you can create your own custom datasets.</p>
