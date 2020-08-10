@@ -23,10 +23,11 @@ export class SelectedSearchFilters extends React.Component {
         if (this.props.filterTopics.length < 1) {
             return null;
         }
-        return this.props.filterTopics.map((filter, index) => {
+        let listOfFilters = this.props.filterTopics.map((filter, index) => {
             let isLast = (this.props.filterTopics.length - 1 === index)
             return <span>{this.removableItem(filter.name, filter.value, isLast, "topic")}</span>
         })
+        return <div className={"padding-left--1 padding-top--1 padding-bottom--1"}><b>In</b> {listOfFilters}</div>
     }
 
     createSelectedDimensions() {
@@ -62,7 +63,7 @@ export class SelectedSearchFilters extends React.Component {
         let selectedDimensions = this.createSelectedDimensions();
         return (
             <div className={"selected-filter-panel font-size--18"}>
-                <div className={"padding-left--1 padding-top--1 padding-bottom--1"}><b>In</b> {selectedTopics}</div>
+                {selectedTopics}
                 {selectedDimensions}
 
             </div>
