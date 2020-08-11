@@ -103,11 +103,21 @@ export class SelectedSearchFilters extends React.Component {
         let selectedTopics = this.createSelectedTopics();
         let selectedDimensions = this.createSelectedDimensions();
         let selectedGeography = this.createSelectedGeography();
+        let lineBreak1 = null;
+        let lineBreak2 = null;
+        if (selectedTopics != null && (selectedDimensions != null || selectedGeography != null)) {
+            lineBreak1 = <div className={"selection-line"}></div>
+        }
+        if (selectedDimensions != null && selectedGeography != null) {
+            lineBreak2 = <div className={"selection-line"}></div>
+        }
         //TODO visual lines between all categories
         return (
             <div className={"selected-filter-panel font-size--18"}>
                 {selectedTopics}
+                {lineBreak1}
                 {selectedDimensions}
+                {lineBreak2}
                 {selectedGeography}
 
             </div>

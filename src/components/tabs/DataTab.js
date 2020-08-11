@@ -33,7 +33,6 @@ export class DataTab extends React.Component {
             },
             topics: {},
             filter: [],
-            pageNum: 0
         }
         this.removeFilterTopic = this.removeFilterTopic.bind(this);
         this.removeFilterDimension = this.removeFilterDimension.bind(this);
@@ -85,7 +84,7 @@ export class DataTab extends React.Component {
                 dim.selected = checked
             }
         })
-        this.setState({dimensions: dimensions}, ()=>{
+        this.setState({dimensions: dimensions}, () => {
             this.newSearch();
         })
     }
@@ -95,7 +94,7 @@ export class DataTab extends React.Component {
         geographies.items.forEach((geo) => {
             geo.selected = (geo.name === name)
         })
-        this.setState({geographies: geographies}, ()=>{
+        this.setState({geographies: geographies}, () => {
             this.newSearch();
         })
     }
@@ -116,7 +115,7 @@ export class DataTab extends React.Component {
             topics.forEach((topic) => {
                 clearAllTopics(topic);
             })
-            this.setState({topics: topics, filter: filters}, ()=>{
+            this.setState({topics: topics, filter: filters}, () => {
                 this.newSearch();
             })
             return;
@@ -149,7 +148,7 @@ export class DataTab extends React.Component {
 
             }
         })
-        this.setState({topics: topics, filter: filters}, ()=>{
+        this.setState({topics: topics, filter: filters}, () => {
             this.newSearch();
         })
     }
@@ -188,7 +187,7 @@ export class DataTab extends React.Component {
         topics.forEach((topic) => {
             findAndDeselectTopic(topic, value);
         })
-        this.setState({topics: topics, filter: filter}, ()=>{
+        this.setState({topics: topics, filter: filter}, () => {
             this.newSearch();
         })
     }
@@ -200,7 +199,7 @@ export class DataTab extends React.Component {
                 singleDimension.selected = false;
             }
         })
-        this.setState({dimensions: dimensions}, ()=>{
+        this.setState({dimensions: dimensions}, () => {
             this.newSearch();
         })
     }
@@ -212,7 +211,7 @@ export class DataTab extends React.Component {
                 singleGeography.selected = false;
             }
         })
-        this.setState({geographies: geographies}, ()=>{
+        this.setState({geographies: geographies}, () => {
             this.newSearch();
         })
     }
@@ -234,7 +233,11 @@ export class DataTab extends React.Component {
                 hierarchies.push(item.name);
             }
         })
-        this.props.requestSearch(dimensions, topics, hierarchies, this.state.pageNum);
+        this.props.requestSearch(dimensions, topics, hierarchies, 0);
+    }
+
+    getDisplayPageNum() {
+        return this.props.pageNum + 1
     }
 
     render() {
@@ -245,7 +248,16 @@ export class DataTab extends React.Component {
         let showGeoArea = false;
         let area = null
         let areaCount = 0;
-        if (this.results != null && this.results.area_profiles != null && this.results.area_profiles.items != null && this.results.area_profiles.items[0] != null) {
+        let totalPages = 0;
+        let showPagination = false;
+        if (this.props.results != null && this.props.results.total_count != null) {
+            totalPages = Math.ceil(this.props.results.total_count / this.props.resultsPerPage)
+            if (this.props.results.total_count > this.props.resultsPerPage) {
+                showPagination = true;
+            }
+        }
+
+        if (this.props.results != null && this.props.results.area_profiles != null && this.props.results.area_profiles.items != null && this.props.results.area_profiles.items[0] != null) {
             showGeoArea = true;
             area = this.results.area_profiles.items[0];
             areaCount = this.results.area_profiles.count;
@@ -279,7 +291,8 @@ export class DataTab extends React.Component {
                     <GeoSnapshot show={showGeoArea} area={area} count={areaCount}/>
                     <Results results={this.props.results}/>
                     <CustomTableOpt show={showCustomTableOpt}/>
-                    <Pagination/>
+                    <Pagination show={showPagination} pageNum={this.getDisplayPageNum()} totalPages={totalPages}
+                                nextPage={this.props.getNextPage}/>
                 </div>
             </div>
         </div>

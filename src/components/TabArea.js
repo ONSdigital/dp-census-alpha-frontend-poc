@@ -28,11 +28,15 @@ export class TabArea extends React.Component {
 
     render() {
         let totalDataResults = 0;
+        totalDataResults = this.props.results.total_count // Todo remove and replace
+
         let totalAreaResults = 0;
         let totalPublicationResults = 0;
         if (this.state.results != null && this.state.results.counts != null) {
             if (this.state.results.counts.datasets != null) {
-                totalDataResults = this.state.results.counts.datasets;
+                //TODO put back
+                // totalDataResults = this.state.results.counts.datasets;
+                totalDataResults = this.props.results.total_count
             }
             if (this.state.results.counts.area_profiles != null) {
                 totalAreaResults = this.state.results.counts.area_profiles;
@@ -58,6 +62,8 @@ export class TabArea extends React.Component {
                          totalResults={totalDataResults} pageNum={this.props.pageNum}
                          requestSearch={this.props.requestSearch}
                          results={this.props.results}
+                         resultsPerPage={this.props.resultsPerPage}
+                         getNextPage={this.props.getNextPage}
                 />
                 <AreasTab show={this.state.activeTab === 1}/>
                 <PublicationsTab show={this.state.activeTab === 2}/>

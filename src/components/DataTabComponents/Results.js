@@ -19,7 +19,7 @@ export class Results extends React.Component {
                         <p className="search-results-desc">
                             {singleResult.description}
                         </p>
-                        <p className={"search-results-meta"}>Released [dd Month yyyy]| {singleResult.hierarchy} and above<br/>
+                        <p className={"search-results-meta"}>Released [dd Month yyyy] | {singleResult.hierarchy} and above<br/>
                         </p>
                     </a>
                 </li>;

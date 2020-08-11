@@ -9,9 +9,9 @@ export class Pagination extends React.Component {
         }
 
         return (
-            <div>
-                <div>➔ <b>Next Page</b></div>
-                <p className={"padding-bottom--0 padding-top--0 margin-bottom--0 margin-top--0"}>{this.props.currentPageNum} of {this.props.totalPages}</p>
+            <div className={"pagination-area margin-left--19"} onClick={()=>{this.props.nextPage()}}>
+                    <div className={"pagination-title"}>➔ <b>Next Page</b></div>
+                    <p className={"pagination-page-nums padding-bottom--0 padding-top--0 margin-bottom--0 margin-top--0"}>{this.props.pageNum} of {this.props.totalPages}</p>
             </div>
         )
     }
