@@ -28,21 +28,17 @@ export class TabArea extends React.Component {
 
     render() {
         let totalDataResults = 0;
-        totalDataResults = this.props.results.total_count // Todo remove and replace
-
         let totalAreaResults = 0;
         let totalPublicationResults = 0;
-        if (this.state.results != null && this.state.results.counts != null) {
-            if (this.state.results.counts.datasets != null) {
-                //TODO put back
-                // totalDataResults = this.state.results.counts.datasets;
-                totalDataResults = this.props.results.total_count
+        if (this.props.results != null && this.props.results.counts != null) {
+            if (this.props.results.counts.datasets != null) {
+                totalDataResults = this.props.results.counts.datasets;
             }
-            if (this.state.results.counts.area_profiles != null) {
-                totalAreaResults = this.state.results.counts.area_profiles;
+            if (this.props.results.counts.area_profiles != null) {
+                totalAreaResults = this.props.results.counts.area_profiles;
             }
-            if (this.state.results.counts.publications != null) {
-                totalPublicationResults = this.state.results.counts.publications;
+            if (this.props.results.counts.publications != null) {
+                totalPublicationResults = this.props.results.counts.publications;
             }
         }
         return <div>

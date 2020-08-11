@@ -17,7 +17,7 @@ export class SearchPage extends React.Component {
             hierarchiesString: "",
             pageNum: 0,
             pageLimit: 10,
-            response: {results: {count: 0, items: []}}
+            // response: {results: {counts: , items: []}}
         };
         this.handleSearch = this.handleSearch.bind(this);
         this.performSearch = this.performSearch.bind(this);
@@ -47,18 +47,20 @@ export class SearchPage extends React.Component {
 
         // TODO change API request
         let responseOBJ = {};
-        responseOBJ.response = await makeRequest(`http://34.248.174.250:10200/datasets?q=${searchString}&limit=${this.state.pageLimit}&offset=${this.state.pageNum * this.state.pageLimit}&topics=${this.state.topicsString}&dimensions=${this.state.dimensionsString}&hierarchies=${this.state.hierarchiesString}`, `GET`);
+        responseOBJ.response = await makeRequest(`http://99.80.8.15:10300/search?q=${searchString}&limit=${this.state.pageLimit}&offset=${this.state.pageNum * this.state.pageLimit}&topics=${this.state.topicsString}&dimensions=${this.state.dimensionsString}&hierarchies=${this.state.hierarchiesString}`, `GET`);
         this.setState(responseOBJ);
     }
 
-    getNextPage() {
+    getNextPage(tabType) {
         // 0 indexed page numbers
-        if ((this.state.pageNum + 1) < Math.ceil(this.state.response.results.total_count / this.state.pageLimit)) {
-            let newPageNum = this.state.pageNum + 1;
-            this.setState({pageNum: newPageNum},
-                () => {
-                    this.handleSearch();
-                })
+        if (tabType === "data") {
+            if ((this.state.pageNum + 1) < Math.ceil(this.state.response.results.counts.datasets / this.state.pageLimit)) {
+                let newPageNum = this.state.pageNum + 1;
+                this.setState({pageNum: newPageNum},
+                    () => {
+                        this.handleSearch();
+                    })
+            }
         }
     }
 
@@ -69,6 +71,10 @@ export class SearchPage extends React.Component {
         if (this.state.searchString !== "") {
             searchString = this.state.searchString;
         }
+        let results;
+        if(this.state.response != null && this.state.response.results != null){
+            results = this.state.response.results;
+        }
         return <div className="page-container">
             <Header/>
             <div className="content">
@@ -76,7 +82,7 @@ export class SearchPage extends React.Component {
                            performSearch={this.performSearch}/>
                 <TabArea dataResults={0} areaResults={0} publicationResults={0} searchString={searchString}
                          totalPages={this.state.totalPages} pageNum={this.state.pageNum}
-                         results={this.state.response.results}
+                         results={results}
                          resultsPerPage={this.state.pageLimit}
                          getNextPage={this.getNextPage}
                          requestSearch={(dimensions, topics, hierarchies, pageNum) => {

@@ -57,7 +57,7 @@ export class DataTab extends React.Component {
     }
 
     async submitTopicsRequest() {
-        let response = await makeRequest(`http://34.248.174.250:10200/taxonomy`, `GET`);
+        let response = await makeRequest(`http://99.80.8.15:10300/taxonomy`, `GET`);
         //TODO handle error message, and don't populate topics if an error happened as you cant and it will fail
         this.setState({
             errorMessage: response.errorMessage,
@@ -70,7 +70,7 @@ export class DataTab extends React.Component {
     }
 
     async submitDimensionsRequest() {
-        let response = await makeRequest(`http://34.248.174.250:10200/dimensions`, `GET`);
+        let response = await makeRequest(`http://99.80.8.15:10300/dimensions`, `GET`);
         this.setState({
             errorMessage: response.errorMessage,
             dimensions: response.results
@@ -244,15 +244,15 @@ export class DataTab extends React.Component {
         if (!this.props.show) {
             return null;
         }
-        let showCustomTableOpt = this.props.results == null || this.props.results.items == null || this.props.results.items.length < 4
+        let showCustomTableOpt = this.props.results == null || this.props.results.datasets == null || this.props.results.items == null || this.props.results.counts.datasets < 4
         let showGeoArea = false;
         let area = null
         let areaCount = 0;
         let totalPages = 0;
         let showPagination = false;
-        if (this.props.results != null && this.props.results.total_count != null) {
-            totalPages = Math.ceil(this.props.results.total_count / this.props.resultsPerPage)
-            if (this.props.results.total_count > this.props.resultsPerPage) {
+        if (this.props.results != null && this.props.results.counts.datasets != null) {
+            totalPages = Math.ceil(this.props.results.counts.datasets / this.props.resultsPerPage)
+            if (this.props.results.counts.datasets > this.props.resultsPerPage) {
                 showPagination = true;
             }
         }
@@ -262,6 +262,7 @@ export class DataTab extends React.Component {
             area = this.results.area_profiles.items[0];
             areaCount = this.results.area_profiles.count;
         }
+        let datasetResults = this.props.results == null ? null : this.props.results.datasets;
 
         return <div className={"results-found"}>
             <div>
@@ -289,7 +290,7 @@ export class DataTab extends React.Component {
                             this.removeGeographyDimension(value)
                         }}/>
                     <GeoSnapshot show={showGeoArea} area={area} count={areaCount}/>
-                    <Results results={this.props.results}/>
+                    <Results results={datasetResults}/>
                     <CustomTableOpt show={showCustomTableOpt}/>
                     <Pagination show={showPagination} pageNum={this.getDisplayPageNum()} totalPages={totalPages}
                                 nextPage={this.props.getNextPage}/>

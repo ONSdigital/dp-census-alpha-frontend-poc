@@ -6,7 +6,7 @@ export class Results extends React.Component {
 
     render() {
         let displayList;
-        if (this.props.results != null && this.props.results != null && this.props.results.items != null && this.props.results.items.length > 0) {
+        if (this.props.results != null && this.props.results.items != null && this.props.results.items.length > 0) {
             displayList = this.props.results.items.map((singleResult, index) => {
                 return <li key={index} className="col col--md-34 col--lg-40 search-results__item search-result-item">
                     <a onClick={() => {
