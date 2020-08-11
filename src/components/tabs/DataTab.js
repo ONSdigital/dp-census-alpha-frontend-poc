@@ -6,6 +6,7 @@ import {Results} from "../DataTabComponents/Results";
 import {SelectedSearchFilters} from "../DataTabComponents/filter/SelectedSearchFilters";
 import {CustomTableOpt} from "../DataTabComponents/CustomTableOpt";
 import {GeoSnapshot} from "../DataTabComponents/GeoSnapshot";
+import {Pagination} from "../Pagination";
 import {makeRequest} from "../../helpers/API";
 
 export class DataTab extends React.Component {
@@ -240,7 +241,7 @@ export class DataTab extends React.Component {
         if (!this.props.show) {
             return null;
         }
-        let showCustomTableOpt = this.state.results == null || this.state.results.length < 4
+        let showCustomTableOpt = this.props.results == null || this.props.results.items == null || this.props.results.items.length < 4
         let showGeoArea = false;
         let area = null
         let areaCount = 0;
@@ -276,8 +277,9 @@ export class DataTab extends React.Component {
                             this.removeGeographyDimension(value)
                         }}/>
                     <GeoSnapshot show={showGeoArea} area={area} count={areaCount}/>
-                    <Results/>
+                    <Results results={this.props.results}/>
                     <CustomTableOpt show={showCustomTableOpt}/>
+                    <Pagination/>
                 </div>
             </div>
         </div>

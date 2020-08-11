@@ -9,7 +9,7 @@ export class Homepage extends React.Component {
     render() {
         return <div>
             <Header/>
-            <SearchBar/>
+            <SearchBar shouldRedirectToSearch={true} performSearch={()=>{}}/>
             <div className={"missing-page-homepage"}>[HOMEPAGE]</div>
             <Footer/>
         </div>

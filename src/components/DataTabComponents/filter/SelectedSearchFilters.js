@@ -83,7 +83,21 @@ export class SelectedSearchFilters extends React.Component {
     }
 
     render() {
-        if (this.props.filterTopics.length < 1 && this.props.filterDimensions.length < 1) {
+        let aFilterOn = false;
+        this.props.filterGeographies.items.forEach((filter) => {
+            if (filter.selected) {
+                aFilterOn = true;
+            }
+        })
+        this.props.filterDimensions.forEach((filter) => {
+            if (filter.selected) {
+                aFilterOn = true;
+            }
+        })
+        if (this.props.filterTopics.length > 0) {
+            aFilterOn = true;
+        }
+        if (!aFilterOn) {
             return null;
         }
         let selectedTopics = this.createSelectedTopics();

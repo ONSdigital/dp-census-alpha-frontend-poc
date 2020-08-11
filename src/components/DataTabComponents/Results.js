@@ -6,19 +6,20 @@ export class Results extends React.Component {
 
     render() {
         let displayList;
-        if (this.props.results != null && this.props.results[0] != null && this.props.results[0].items != null && this.props.results[0].items.length > 0) {
-            displayList = this.props.results[0].items.map((singleResult, index) => {
-                return <li key={index} className="col col--md-34 col--lg-50 search-results__item search-result-item">
+        if (this.props.results != null && this.props.results != null && this.props.results.items != null && this.props.results.items.length > 0) {
+            displayList = this.props.results.items.map((singleResult, index) => {
+                return <li key={index} className="col col--md-34 col--lg-40 search-results__item search-result-item">
                     <a onClick={() => {
-                        this.props.parentSearch(singleResult.location)
+                        //TODO onClick open datasetLanding page
+                        //this.props.parentSearch(singleResult.location)
                     }}
                        className={"pointer"}
                     href={"#"}>
-                        {singleResult.name}
-                        <p className="search-results__meta">
-                            Code: {singleResult.code}<br/>
-                            Hierarchy: {singleResult.hierarchy}<br/>
+                        {singleResult.title}
+                        <p className="search-results-desc">
                             {singleResult.description}
+                        </p>
+                        <p className={"search-results-meta"}>Released [dd Month yyyy]| {singleResult.hierarchy} and above<br/>
                         </p>
                     </a>
                 </li>;
