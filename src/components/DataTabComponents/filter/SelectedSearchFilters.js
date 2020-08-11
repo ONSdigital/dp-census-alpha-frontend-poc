@@ -67,7 +67,7 @@ export class SelectedSearchFilters extends React.Component {
         let listOfSelectedGeography = this.props.filterGeographies.items.map((filter, index) => {
             if (filter.selected) {
                 geoSelected = true;
-                return <span>{this.removableItem(filter.label, filter.name, false, "geography")}</span>
+                return <span>{this.removableItem(filter.hierarchy, filter.filterable_hierarchy, false, "geography")}</span>
             } else {
                 return null;
             }

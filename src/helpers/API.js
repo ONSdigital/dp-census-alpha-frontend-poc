@@ -15,6 +15,9 @@ export async function makeRequest(url, verb) {
                 case 400:
                     errorText = "Error 400: Bad Request from API";
                     break;
+                case 404:
+                    errorText = "Error 404: Page not found";
+                    break;
                 case 500:
                     errorText = "Error 500: Internal Server Error from API";
                     break;

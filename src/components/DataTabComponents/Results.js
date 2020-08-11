@@ -14,7 +14,7 @@ export class Results extends React.Component {
                         //this.props.parentSearch(singleResult.location)
                     }}
                        className={"pointer"}
-                    href={"#"}>
+                    href={`/dp-census-alpha-frontend-poc/dataset-landing/${singleResult.alias}`}>
                         {singleResult.title}
                         <p className="search-results-desc">
                             {singleResult.description}

@@ -17,20 +17,7 @@ export class DataTab extends React.Component {
         this.state = {
             dimensions: {items: []},
             // TODO replace with new endpoint
-            geographies: {
-                items: [
-                    {label: "Nationally", name: "nationally"},
-                    {label: "Regionally", name: "regionally"},
-                    {label: "Health Areas", name: "healthareas"},
-                    {label: "Constituencies", name: "constituencies"},
-                    {label: "Built-up Areas", name: "builtupareas"},
-                    {label: "Parishes", name: "parishes"},
-                    {label: "Middle Super Layer Output areas", name: "middlesuperlayeroutputareas"},
-                    {label: "Lower Super Layer Output areas", name: "lowersuperlayeroutputareas"},
-                    {label: "Output areas", name: "outputareas"},
-                    {label: "postcode sectors", name: "postcodesectors"},
-                ]
-            },
+            geographies: {items: []},
             topics: {},
             filter: [],
         }
@@ -39,8 +26,9 @@ export class DataTab extends React.Component {
         this.removeGeographyDimension = this.removeGeographyDimension.bind(this);
         this.submitTopicsRequest = this.submitTopicsRequest.bind(this);
         this.getTopics = this.getTopics.bind(this);
-        this.submitDimensionsRequest = this.submitDimensionsRequest.bind(this);
         this.getDimensions = this.getDimensions.bind(this);
+        this.getGeographies = this.getGeographies.bind(this);
+        this.submitDimensionsRequest = this.submitDimensionsRequest.bind(this);
         this.checkChangedDimensions = this.checkChangedDimensions.bind(this);
         this.checkChangedTopics = this.checkChangedTopics.bind(this);
         this.checkChangedGeographies = this.checkChangedGeographies.bind(this);
@@ -50,6 +38,7 @@ export class DataTab extends React.Component {
     componentDidMount() {
         this.getTopics();
         this.getDimensions();
+        this.getGeographies();
     }
 
     getTopics = async () => {
@@ -62,6 +51,8 @@ export class DataTab extends React.Component {
         this.setState({
             errorMessage: response.errorMessage,
             topics: response.results.topics
+        }, () => {
+            this.props.updateErrorMessage(this.state.errorMessage);
         });
     }
 
@@ -74,6 +65,8 @@ export class DataTab extends React.Component {
         this.setState({
             errorMessage: response.errorMessage,
             dimensions: response.results
+        }, () => {
+            this.props.updateErrorMessage(this.state.errorMessage);
         });
     }
 
@@ -89,10 +82,24 @@ export class DataTab extends React.Component {
         })
     }
 
+    getGeographies = async () => {
+        await this.submitGeographyRequest();
+    }
+
+    async submitGeographyRequest() {
+        let response = await makeRequest(`http://99.80.8.15:10300/hierarchies`, `GET`);
+        this.setState({
+            errorMessage: response.errorMessage,
+            geographies: response.results
+        }, () => {
+            this.props.updateErrorMessage(this.state.errorMessage);
+        });
+    }
+
     checkChangedGeographies(name, checked) {
         let geographies = this.state.geographies;
         geographies.items.forEach((geo) => {
-            geo.selected = (geo.name === name)
+            geo.selected = (geo.filterable_hierarchy === name)
         })
         this.setState({geographies: geographies}, () => {
             this.newSearch();
@@ -100,7 +107,6 @@ export class DataTab extends React.Component {
     }
 
     checkChangedTopics(name, level) {
-
         let topics = this.state.topics;
         let filters = []
         let clearAllTopics = (topic) => {
@@ -207,7 +213,7 @@ export class DataTab extends React.Component {
     removeGeographyDimension(name) {
         let geographies = this.state.geographies;
         geographies.items.forEach((singleGeography) => {
-            if (name === singleGeography.name) {
+            if (name === singleGeography.filterable_hierarchy) {
                 singleGeography.selected = false;
             }
         })
@@ -263,7 +269,7 @@ export class DataTab extends React.Component {
             areaCount = this.results.area_profiles.count;
         }
         let datasetResults = this.props.results == null ? null : this.props.results.datasets;
-
+        let dimensionList = this.state.dimensions == null ? [] : this.state.dimensions.items;
         return <div className={"results-found"}>
             <div>
                 <span
@@ -278,7 +284,7 @@ export class DataTab extends React.Component {
                     />
                     <SelectedSearchFilters
                         filterTopics={this.state.filter}
-                        filterDimensions={this.state.dimensions.items}
+                        filterDimensions={dimensionList}
                         filterGeographies={this.state.geographies} // TODO add geography
                         removeFilterTopic={(value) => {
                             this.removeFilterTopic(value)

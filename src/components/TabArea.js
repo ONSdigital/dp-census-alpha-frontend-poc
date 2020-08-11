@@ -60,6 +60,7 @@ export class TabArea extends React.Component {
                          results={this.props.results}
                          resultsPerPage={this.props.resultsPerPage}
                          getNextPage={this.props.getNextPage}
+                         updateErrorMessage={this.props.updateErrorMessage}
                 />
                 <AreasTab show={this.state.activeTab === 1}/>
                 <PublicationsTab show={this.state.activeTab === 2}/>

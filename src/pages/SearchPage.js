@@ -5,6 +5,7 @@ import {Footer} from "../components/footer/Footer";
 import {makeRequest} from "../helpers/API";
 import {SearchBar} from "../components/header/SearchBar";
 import {TabArea} from "../components/TabArea";
+import {Warning} from "../components/Warning";
 
 export class SearchPage extends React.Component {
 //TODO on search query change the filters are lost
@@ -22,6 +23,8 @@ export class SearchPage extends React.Component {
         this.handleSearch = this.handleSearch.bind(this);
         this.performSearch = this.performSearch.bind(this);
         this.getNextPage = this.getNextPage.bind(this);
+        this.hideWarnings = this.hideWarnings.bind(this);
+        this.updateErrorMessage = this.updateErrorMessage.bind(this);
     }
 
     componentDidMount() {
@@ -64,6 +67,16 @@ export class SearchPage extends React.Component {
         }
     }
 
+    hideWarnings() {
+        this.setState({response: {errorMessage: ""}})
+    }
+
+    updateErrorMessage(message) {
+        if(this.state.errorMessage === ""){
+            this.setState({response: {errorMessage: message}})
+        }
+    }
+
     render() {
         // TODO change TabArea vars
         const params = new URLSearchParams(this.props.location.search);
@@ -72,9 +85,10 @@ export class SearchPage extends React.Component {
             searchString = this.state.searchString;
         }
         let results;
-        if(this.state.response != null && this.state.response.results != null){
+        if (this.state.response != null && this.state.response.results != null) {
             results = this.state.response.results;
         }
+        let errorMessage = this.state.response == null ? "" : this.state.response.errorMessage
         return <div className="page-container">
             <Header/>
             <div className="content">
@@ -85,9 +99,8 @@ export class SearchPage extends React.Component {
                          results={results}
                          resultsPerPage={this.state.pageLimit}
                          getNextPage={this.getNextPage}
+                         updateErrorMessage={this.updateErrorMessage}
                          requestSearch={(dimensions, topics, hierarchies, pageNum) => {
-                             //TODO make use of the others when API available
-                             //TODO reset page number on new search not caused by just pagination change
                              this.setState({
                                  dimensionsString: dimensions.join(","),
                                  topicsString: topics.join(","),
@@ -99,6 +112,8 @@ export class SearchPage extends React.Component {
                          }}/>
             </div>
             <Footer/>
+            <Warning message={errorMessage}
+                     hideWarnings={this.hideWarnings}/>
         </div>
     }
 }

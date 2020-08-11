@@ -26,19 +26,19 @@ export class FilterGeography extends React.Component {
         let geographyOptions = this.props.geographies.items.map((geo) => {
             return <li
                 className={"filters__item"}
-                key={geo.name}>
+                key={geo.filterable_hierarchy}>
                 <div className="filters__field">
-                    <input id={`radio-geography-${geo.name}`}
+                    <input id={`radio-geography-${geo.filterable_hierarchy}`}
                            className="js-auto-submit__input radio-geography"
                            type="radio"
-                           name="filter-geography" value={geo.name}
+                           name="filter-geography" value={geo.filterable_hierarchy}
                            checked={geo.selected}
                            onChange={(e) => {
                                this.props.checkChanged(e.target.value, e.target.checked);
                            }}
                     />
-                    <label htmlFor={`radio-geography-${geo.name}`} className={"font-size--18"}>
-                        {geo.label}
+                    <label htmlFor={`radio-geography-${geo.filterable_hierarchy}`} className={"font-size--18"}>
+                        {geo.hierarchy}
                     </label>
                 </div>
             </li>
