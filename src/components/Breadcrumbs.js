@@ -31,6 +31,10 @@ export class Breadcrumbs extends React.Component {
 
     makeBread() {
         let themeText = this.props.datasetTheme;
+        if (this.props.datasetTheme == null){
+            return <div><span> <a href={"/dp-census-alpha-frontend-poc/"}>Home</a> > <a href={"/dp-census-alpha-frontend-poc/search"}>Dataset search</a> > <a href={"#"}>Dataset Landing Page</a></span>
+            </div>
+        }
         let themes = themeText.split("/");
         if (themes[0] === "") {
             themes.splice(0, 1);

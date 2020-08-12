@@ -84,7 +84,7 @@ export class DatasetLandingPageContent extends React.Component {
             <div className={"wrapper"}>
                 <Breadcrumbs datasetID={this.props.datasetID} datasetTheme={this.state.response.results.theme}
                              updateErrorMessage={this.props.updateErrorMessage}/>
-                <div className={"col--md-40 dataset-landing-main"}>
+                <div className={"col--md-39 dataset-landing-main"}>
                     <p className={"font-size--18 padding-bottom--0 margin-bottom--0"}>Dataset</p>
                     <h1 className={"margin-top--0 padding-top--0 margin-bottom--4"}>
                         <b>{this.state.response.results.title}</b></h1>
