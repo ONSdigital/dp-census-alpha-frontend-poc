@@ -426,11 +426,29 @@
     margin: 0 16px 0 16px;
 }
 
-.breadcrumbs{
+.breadcrumbs {
     border-bottom: 1px solid #D0D2D3;
     margin-top: 30px;
     padding-bottom: 30px;
+}
 
+.dataset-landing-related-datasets-section {
+    border-top: 3px solid black;
+    margin-top: 30px;
+    margin-bottom: 0px;
+    border-bottom: 3px solid black;
+}
+
+.dataset-landing-related-publications-section {
+
+}
+
+.dataset-landing-related-section {
+    float: right;
+}
+
+.dataset-landing-main {
+    float: left
 }
 
 body {

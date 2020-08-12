@@ -7,7 +7,6 @@ import {DatasetLandingPageContent} from "../components/dataset-landing-page/Data
 
 export class DatasetLandingPage extends React.Component {
 
-    //https://api.beta.ons.gov.uk/v1/datasets/cpih01
 
     constructor(props) {
         super(props);
