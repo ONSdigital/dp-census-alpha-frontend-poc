@@ -426,6 +426,13 @@
     margin: 0 16px 0 16px;
 }
 
+.breadcrumbs{
+    border-bottom: 1px solid #D0D2D3;
+    margin-top: 30px;
+    padding-bottom: 30px;
+
+}
+
 body {
     font-family: "Open Sans", Helvetica, Arial, sans-serif
 }
