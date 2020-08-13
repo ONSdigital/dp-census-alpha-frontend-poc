@@ -427,7 +427,7 @@
 }
 
 .breadcrumbs {
-    border-bottom: 1px solid #D0D2D3;
+    border-bottom: 1px solid #58595B;
     margin-top: 30px;
     padding-bottom: 30px;
 }
@@ -439,8 +439,19 @@
     border-bottom: 3px solid black;
 }
 
-.dataset-landing-related-publications-section {
+.dimension-selection-area-block {
+    float: left;
+    width: 260px;
 
+}
+
+.dimension-selection-area-block-group {
+    background-color: #D0D2D3;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 20px;
+    padding-left: 10px;
+    padding-bottom: 20px;
 }
 
 .dataset-landing-related-section {
@@ -449,6 +460,41 @@
 
 .dataset-landing-main {
     float: left
+}
+
+.disclosure-control-box {
+    border: 4px solid;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.disclosure-paragraph {
+    margin-left: 10px;
+    padding-left: 26px;
+    border-left-color: #58595B;
+    border-left-width: 3px;
+    border-left-style: solid;
+    margin-top: 60px;
+    padding-top: 0px
+}
+
+.disclosure-arrow {
+    color: #206095;
+    cursor: pointer;
+    line-height: 26px
+}
+
+.disclosure-accordion {
+    cursor: pointer;
+}
+
+.preview-download-change {
+    float: right;
+    text-decoration: underline;
+    cursor: pointer;
+    color: #206095;
+    border: 0;
+    background-color: #D0D2D3;
 }
 
 body {

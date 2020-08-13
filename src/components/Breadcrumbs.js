@@ -41,7 +41,6 @@ export class Breadcrumbs extends React.Component {
         }
         let checkAndReplaceTopics = (topics) => {
             topics.forEach((topic) => {
-                console.log("topic.filterable_title: " + topic.filterable_title);
                 let indexOfMatch = themes.indexOf(topic.filterable_title)
                 if (indexOfMatch > -1) {
                     themes[indexOfMatch] = topic.title;

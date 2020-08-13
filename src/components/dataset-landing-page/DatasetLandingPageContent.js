@@ -2,6 +2,8 @@ import {SearchBar} from "../header/SearchBar";
 import React from "react";
 import {makeRequest} from "../../helpers/API";
 import {Breadcrumbs} from "../Breadcrumbs";
+import {DimensionPreviewMenu} from "./DimensionPreviewMenu";
+import {DatasetLandingPageInfo} from "./DatasetLandingPageInfo";
 
 export class DatasetLandingPageContent extends React.Component {
 
@@ -33,6 +35,10 @@ export class DatasetLandingPageContent extends React.Component {
         this.setState(responseOBJ);
     }
 
+    toggleDisclosureInfo() {
+        this.setState({disclosureControlInfoOpen: !this.state.disclosureControlInfoOpen})
+    }
+
     makeRelatedDatasets() {
         let relatedDatasets;
 
@@ -61,7 +67,8 @@ export class DatasetLandingPageContent extends React.Component {
                 } else if (index > 2) {
                     return null;
                 } else {
-                    return <p className={"font-size--18"}><a href={relatedPublication.href}>{relatedPublication.title}</a></p>
+                    return <p className={"font-size--18"}><a
+                        href={relatedPublication.href}>{relatedPublication.title}</a></p>
                 }
             })
             return relatedPublications
@@ -70,22 +77,87 @@ export class DatasetLandingPageContent extends React.Component {
         }
     }
 
-    render() {
-        let searchString;
-        if (this.state.response == null || this.state.response.results == null) {
-            return null;
-        }
+    // TODO move to helper
+    randomIntBetween(min, max) { // min and max included
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    // TODO move to helper
+    getColourBetween(color1, color2, weight) {
+        var p = weight;
+        var w = p * 2 - 1;
+        var w1 = (w/1+1) / 2;
+        var w2 = 1 - w1;
+        var rgb = [Math.round(color1[0] * w1 + color2[0] * w2),
+            Math.round(color1[1] * w1 + color2[1] * w2),
+            Math.round(color1[2] * w1 + color2[2] * w2)];
+        return rgb;
+    }
+
+    makeLandingPageInfo() {
         let relatedDatasets = this.makeRelatedDatasets();
         let relatedPublications = this.makeRelatedPublications();
-        return (<div className="content">
-            <SearchBar searchString={searchString} shouldRedirectToSearch={true}
-                       performSearch={() => {
-                       }}/>
-            <div className={"wrapper"}>
-                <Breadcrumbs datasetID={this.props.datasetID} datasetTheme={this.state.response.results.theme}
-                             updateErrorMessage={this.props.updateErrorMessage}/>
+        let disclosureControlArrow = this.state.disclosureControlInfoOpen ?
+            <b className={"font-size--18 float-left disclosure-arrow"} onClick={() => {
+                this.toggleDisclosureInfo();
+            }}>▼</b> :
+            <b className={"font-size--18 line-height-md--26 float-left disclosure-arrow"} onClick={() => {
+                this.toggleDisclosureInfo();
+            }}>▶</b>;
+        let disclosureControlInfo = this.state.disclosureControlInfoOpen ? (
+            <p className={"disclosure-paragraph font-size--18"}>Census data provides great details, while
+                protecting the confidentiality of the individual.
+                <b> Statistical disclosure control </b>
+                has been applied to 2021 Census data to protect the attributes of an
+                individual.<br/><br/>
+                ONS has used two complementary strategies for protecting individuals while minimising damage
+                to
+                the results:
+                <ul>
+                    <li className={"font-size--18 margin-top--0 margin-bottom--0 padding-top--0 padding-bottom--0"}>target
+                        record swapping, and
+                    </li>
+                    <li className={"font-size--18 margin-top--0 margin-bottom--0 padding-top--0 padding-bottom--0"}>restriction
+                        of detail particularly at low level geographies
+                    </li>
+                </ul>
+                To improve the outputs you can either change the area type to a higher level.<br/><br/>
+                <i>For example. Output Area to Lower Layer Super Output area.</i><br/><br/>
+                Alternatively choose a variable and reduce the number of categories in that
+                variable. <br/><br/>
+                <i>For example, Age: 19 categories to 8 categories</i>
+
+            </p>) : null
+        let csvDownloadLink = (this.state.datasetDetails.results != null && this.state.datasetDetails.results.downloads != null && this.state.datasetDetails.results.downloads.csv) ? this.state.datasetDetails.results.downloads.csv.href : "#"
+        let randomMaxBlockedNum = this.randomIntBetween(1, 5000);
+        let randomBlockedNum = this.randomIntBetween(0, randomMaxBlockedNum);
+        let percentageBlocked = randomBlockedNum / randomMaxBlockedNum
+        let disclosureColour = 'rgb(' + this.getColourBetween([255, 0, 0], [0, 255, 0], percentageBlocked).join() + ')'
+
+        return (
+            <div>
                 <div className={"col--md-39 dataset-landing-main"}>
-                    <p className={"font-size--18 padding-bottom--0 margin-bottom--0"}>Dataset</p>
+                    <div className={"margin-bottom--5"}>
+                        <div
+                            className={"disclosure-control-box margin-top--4 padding-top--3 padding-right--1 padding-bottom--3 padding-left--1"}
+                            style={{"border-color": disclosureColour, borderColor: disclosureColour}}>
+                            <b className={"font-size--24"}>{randomBlockedNum} out of {randomMaxBlockedNum} areas were
+                                blocked by Statistical Disclosure
+                                Control rules</b>
+                        </div>
+                        <p>{disclosureControlArrow}
+                            <a
+                                className={"disclosure-accordion font-size--18 float-left col--md-35 padding-left--1"}
+                                onClick={() => {
+                                    this.toggleDisclosureInfo()
+                                }}><u>What is Statistical
+                                Data Disclosure and tips on
+                                how to improve the outputs</u>
+                            </a>
+                        </p>
+                        {disclosureControlInfo}
+                    </div>
+                    <p className={"font-size--18 padding-bottom--0 margin-bottom--0 margin-top--8"}>Dataset</p>
                     <h1 className={"margin-top--0 padding-top--0 margin-bottom--4"}>
                         <b>{this.state.response.results.title}</b></h1>
                     <p className={"font-size--18"}><b>Overview</b></p>
@@ -101,22 +173,46 @@ export class DatasetLandingPageContent extends React.Component {
                         ONS uses Statistical
                         Disclosure Controls to protect the attributes of an individual and their data and so some
                         details might be restricted.</p>
-                    <p className={"font-size--18"}><b>Download dataset</b></p>
-                    <input type="button" value=" xls (35.0 KB)" aria-label="download the data"
-                           className="btn btn--primary btn--thick btn--wide btn--big btn--focus margin-right--2 font-weight-700 font-size--17"
-                           name="download the data"/>
+                    <DimensionPreviewMenu datasetDetails={this.state.datasetDetails.results}/>
+                    <a className={"font-size--18"} href={"#"}><u>Add variable</u></a>
+                    <p className={"font-size--18 margin-top--4"} ><b>Download dataset</b></p>
+                    <form method="get" action={csvDownloadLink}>
+                        <input type="submit" value=" xls (35.0 KB)" aria-label="download the data"
+                               className="btn btn--primary btn--thick btn--wide btn--big btn--focus margin-right--2 font-weight-700 font-size--17"
+                               name="download the data"
+                        />
+                    </form>
                 </div>
                 <div className={"dataset-landing-related-section col--md-19"}>
                     <div className={"dataset-landing-related-datasets-section"}>
                         <p className={"font-size--18"}><b>Related Datasets</b></p>
                         <div>{relatedDatasets}</div>
                     </div>
-                <div className={"dataset-landing-related-publications-section"}>
-                    <p className={"font-size--18"}><b> Publications that use this dataset</b></p>
-                    {relatedPublications}
-                </div>
+                    <div className={"dataset-landing-related-publications-section"}>
+                        <p className={"font-size--18"}><b> Publications that use this dataset</b></p>
+                        {relatedPublications}
+                    </div>
 
                 </div>
+            </div>
+        )
+    }
+
+    render() {
+        let searchString;
+        if (this.state.response == null || this.state.response.results == null || this.state.datasetDetails == null) {
+            return null;
+        }
+        let landingPageInfo = this.makeLandingPageInfo();
+        return (<div className="content">
+            <SearchBar searchString={searchString} shouldRedirectToSearch={true}
+                       performSearch={() => {
+                       }}/>
+            <div className={"wrapper"}>
+                <Breadcrumbs datasetID={this.props.datasetID} datasetTheme={this.state.response.results.theme}
+                             updateErrorMessage={this.props.updateErrorMessage}/>
+                {landingPageInfo}
+
             </div>
         </div>)
     }
