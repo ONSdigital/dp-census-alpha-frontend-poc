@@ -10,9 +10,30 @@ export class DatasetLandingPage extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state={};
+        this.state = {selectedDimensionOptions: []};
         this.updateErrorMessage = this.updateErrorMessage.bind(this);
+        this.showDimensionFor = this.showDimensionFor.bind(this);
+        this.showDimensionOptionsFor = this.showDimensionOptionsFor.bind(this);
+        this.updateSelectedDimensionOptions = this.updateSelectedDimensionOptions.bind(this);
+        this.hideWarnings = this.hideWarnings.bind(this);
     }
+
+    hideWarnings() {
+        this.setState({errorMessage: ""})
+    }
+
+    updateSelectedDimensionOptions(dimension, option,) {
+
+    }
+
+    showDimensionOptionsFor(dimension) {
+
+    }
+
+    showDimensionFor(map) {
+        this.setState({errorMessage: `Warning this is a 'Customise My Data (CMD)' dataset, which has no mappings for: ${map}`})
+    }
+
     updateErrorMessage(errorMessage) {
         this.setState({errorMessage: errorMessage});
     }
@@ -21,7 +42,13 @@ export class DatasetLandingPage extends React.Component {
         let errorMessage = this.state.errorMessage;
         return (<div className="page-container">
             <Header/>
-            <DatasetLandingPageContent datasetID={this.props.match.params.name} updateErrorMessage={this.updateErrorMessage}/>
+            <DatasetLandingPageContent datasetID={this.props.match.params.name}
+                                       updateErrorMessage={this.updateErrorMessage}
+                                       selectedDimensionOptions={this.state.selectedDimensionOptions}
+                                       showDimensionOptionsFor={this.showDimensionOptionsFor}
+                                       showDimensionFor={this.showDimensionFor}
+                                       updateSelectedDimensionOptions={this.updateSelectedDimensionOptions}
+            />
             <Footer/>
             <Warning message={errorMessage}
                      hideWarnings={this.hideWarnings}/>

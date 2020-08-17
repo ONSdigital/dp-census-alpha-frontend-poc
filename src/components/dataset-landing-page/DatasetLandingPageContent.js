@@ -14,6 +14,19 @@ export class DatasetLandingPageContent extends React.Component {
 
     componentDidMount() {
         this.handleSearch();
+        this.makeRandomColorForDisclosure();
+    }
+
+    makeRandomColorForDisclosure() {
+        let randomMaxBlockedNum = this.randomIntBetween(1, 5000);
+        let randomBlockedNum = this.randomIntBetween(0, randomMaxBlockedNum);
+        let percentageBlocked = randomBlockedNum / randomMaxBlockedNum;
+        let disclosureColour = 'rgb(' + this.getColourBetween([255, 0, 0], [0, 255, 0], percentageBlocked).join() + ')'
+        this.setState({
+            disclosureColour: disclosureColour,
+            randomMaxBlockedNum: randomMaxBlockedNum,
+            randomBlockedNum: randomBlockedNum,
+        });
     }
 
     handleSearch = async () => {
@@ -86,7 +99,7 @@ export class DatasetLandingPageContent extends React.Component {
     getColourBetween(color1, color2, weight) {
         var p = weight;
         var w = p * 2 - 1;
-        var w1 = (w/1+1) / 2;
+        var w1 = (w / 1 + 1) / 2;
         var w2 = 1 - w1;
         var rgb = [Math.round(color1[0] * w1 + color2[0] * w2),
             Math.round(color1[1] * w1 + color2[1] * w2),
@@ -129,10 +142,6 @@ export class DatasetLandingPageContent extends React.Component {
 
             </p>) : null
         let csvDownloadLink = (this.state.datasetDetails.results != null && this.state.datasetDetails.results.downloads != null && this.state.datasetDetails.results.downloads.csv) ? this.state.datasetDetails.results.downloads.csv.href : "#"
-        let randomMaxBlockedNum = this.randomIntBetween(1, 5000);
-        let randomBlockedNum = this.randomIntBetween(0, randomMaxBlockedNum);
-        let percentageBlocked = randomBlockedNum / randomMaxBlockedNum
-        let disclosureColour = 'rgb(' + this.getColourBetween([255, 0, 0], [0, 255, 0], percentageBlocked).join() + ')'
 
         return (
             <div>
@@ -140,8 +149,9 @@ export class DatasetLandingPageContent extends React.Component {
                     <div className={"margin-bottom--5"}>
                         <div
                             className={"disclosure-control-box margin-top--4 padding-top--3 padding-right--1 padding-bottom--3 padding-left--1"}
-                            style={{"border-color": disclosureColour, borderColor: disclosureColour}}>
-                            <b className={"font-size--24"}>{randomBlockedNum} out of {randomMaxBlockedNum} areas were
+                            style={{"border-color": this.state.disclosureColour}}>
+                            <b className={"font-size--24"}>{this.state.randomBlockedNum} out
+                                of {this.state.randomMaxBlockedNum} areas were
                                 blocked by Statistical Disclosure
                                 Control rules</b>
                         </div>
@@ -173,9 +183,13 @@ export class DatasetLandingPageContent extends React.Component {
                         ONS uses Statistical
                         Disclosure Controls to protect the attributes of an individual and their data and so some
                         details might be restricted.</p>
-                    <DimensionPreviewMenu datasetDetails={this.state.datasetDetails.results}/>
+                    <DimensionPreviewMenu datasetDetails={this.state.datasetDetails.results}
+                                          selectedDimensionOptions={this.props.selectedDimensionOptions}
+                                          showDimensionFor={this.props.showDimensionFor}
+                                          showDimensionOptionsFor={this.props.showDimensionOptionsFor}
+                    />
                     <a className={"font-size--18"} href={"#"}><u>Add variable</u></a>
-                    <p className={"font-size--18 margin-top--4"} ><b>Download dataset</b></p>
+                    <p className={"font-size--18 margin-top--4"}><b>Download dataset</b></p>
                     <form method="get" action={csvDownloadLink}>
                         <input type="submit" value=" xls (35.0 KB)" aria-label="download the data"
                                className="btn btn--primary btn--thick btn--wide btn--big btn--focus margin-right--2 font-weight-700 font-size--17"
