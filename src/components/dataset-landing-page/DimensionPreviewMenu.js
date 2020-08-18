@@ -2,8 +2,10 @@ import React from 'react';
 import '../../styles/App.css';
 
 export class DimensionPreviewMenu extends React.Component {
+    static defaultProps = {dimensionOptions:{}}
     constructor(props) {
         super(props);
+
         this.state = {
             selectedDimensions: []
         }
@@ -20,21 +22,22 @@ export class DimensionPreviewMenu extends React.Component {
     }
 
     makeDimensionRow(label, name) {
+        let id = label || this.toTitleCase(name);
         return (<div className={"col margin-left--0 padding-left--1 dimension-selection-area-block-group"}>
-            <div className={"dimension-selection-area-block font-size--18"}><b>{label || this.toTitleCase(name)}</b>
+            <div className={"dimension-selection-area-block font-size--18"}><b>{id}</b>
             </div>
-            <div className={"dimension-selection-area-block font-size--18"}>Hampshire</div>
+            <div className={"dimension-selection-area-block font-size--18"}>{this.props.dimensionOptions[id] || 'Nothing selected'}</div>
             <div className={"dimension-selection-area-block font-size--18"}>
                 <input className="preview-download-change font-size--18" type="button" value="Change"
                        name="filter"
                        onClick={() => {
-                           this.props.showDimensionFor(label || this.toTitleCase(name));
+                           this.props.showDimensionFor(id);
                        }}
                 />
                 <input className="preview-download-change font-size--18" type="button" value="Add"
                        name="filter"
                        onClick={() => {
-                           this.props.showDimensionOptionsFor();
+                           this.props.showDimensionOptionsFor(id);
                        }}
                 />
             </div>

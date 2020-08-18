@@ -107,7 +107,20 @@ export class DatasetLandingPageContent extends React.Component {
         return rgb;
     }
 
+    // TODO move to helper
+    bytesToSize(bytes) {
+        let sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+        if (bytes == 0) {
+            return '0 Byte';
+        }
+        let i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+        return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+    }
+
     makeLandingPageInfo() {
+        if(!this.props.show){
+            return null;
+        }
         let relatedDatasets = this.makeRelatedDatasets();
         let relatedPublications = this.makeRelatedPublications();
         let disclosureControlArrow = this.state.disclosureControlInfoOpen ?
@@ -115,6 +128,7 @@ export class DatasetLandingPageContent extends React.Component {
                 this.toggleDisclosureInfo();
             }}>▼</b> :
             <b className={"font-size--18 line-height-md--26 float-left disclosure-arrow"} onClick={() => {
+                this.toggleDisclosureInfo();
                 this.toggleDisclosureInfo();
             }}>▶</b>;
         let disclosureControlInfo = this.state.disclosureControlInfoOpen ? (
@@ -141,8 +155,12 @@ export class DatasetLandingPageContent extends React.Component {
                 <i>For example, Age: 19 categories to 8 categories</i>
 
             </p>) : null
-        let csvDownloadLink = (this.state.datasetDetails.results != null && this.state.datasetDetails.results.downloads != null && this.state.datasetDetails.results.downloads.csv) ? this.state.datasetDetails.results.downloads.csv.href : "#"
-
+        let csvDownloadLink = "#"
+        let downloadSize = "35 MB"
+        if (this.state.datasetDetails.results != null && this.state.datasetDetails.results.downloads != null && this.state.datasetDetails.results.downloads.csv) {
+            csvDownloadLink = this.state.datasetDetails.results.downloads.csv.href;
+            downloadSize = this.bytesToSize(this.state.datasetDetails.results.downloads.csv.size);
+        }
         return (
             <div>
                 <div className={"col--md-39 dataset-landing-main"}>
@@ -191,7 +209,7 @@ export class DatasetLandingPageContent extends React.Component {
                     <a className={"font-size--18"} href={"#"}><u>Add variable</u></a>
                     <p className={"font-size--18 margin-top--4"}><b>Download dataset</b></p>
                     <form method="get" action={csvDownloadLink}>
-                        <input type="submit" value=" xls (35.0 KB)" aria-label="download the data"
+                        <input type="submit" value={` xls (${downloadSize})`} aria-label="download the data"
                                className="btn btn--primary btn--thick btn--wide btn--big btn--focus margin-right--2 font-weight-700 font-size--17"
                                name="download the data"
                         />

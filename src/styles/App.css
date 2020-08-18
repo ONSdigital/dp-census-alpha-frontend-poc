@@ -452,8 +452,11 @@
     padding-top: 20px;
     padding-left: 10px;
     padding-bottom: 20px;
-    width:616px
+    width: 616px;
+    min-width: 200px;
+    min-height: 24px;
 }
+
 
 .dataset-landing-related-section {
     float: right;
