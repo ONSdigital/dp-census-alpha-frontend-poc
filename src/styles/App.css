@@ -501,6 +501,19 @@
     background-color: #D0D2D3;
 }
 
+.mappings-radio {
+    height: 30px;
+    width: 30px;
+}
+
+.mappings-radio-label {
+    vertical-align: super;
+}
+
+.mappings-selection-area {
+    border-bottom: 1px solid #D0D2D3;
+}
+
 body {
     font-family: "Open Sans", Helvetica, Arial, sans-serif
 }

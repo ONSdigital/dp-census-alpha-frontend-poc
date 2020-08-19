@@ -4,6 +4,8 @@ import {makeRequest} from "../../helpers/API";
 import {Breadcrumbs} from "../Breadcrumbs";
 import {DimensionPreviewMenu} from "./DimensionPreviewMenu";
 import {DatasetLandingPageInfo} from "./DatasetLandingPageInfo";
+import * as MathHelpers from "../../helpers/Mathamatics";
+import {getColourBetween} from "../../helpers/Colors";
 
 export class DatasetLandingPageContent extends React.Component {
 
@@ -13,39 +15,23 @@ export class DatasetLandingPageContent extends React.Component {
     }
 
     componentDidMount() {
-        this.handleSearch();
         this.makeRandomColorForDisclosure();
     }
 
     makeRandomColorForDisclosure() {
-        let randomMaxBlockedNum = this.randomIntBetween(1, 5000);
-        let randomBlockedNum = this.randomIntBetween(0, randomMaxBlockedNum);
+        let randomMaxBlockedNum = MathHelpers.randomIntBetween(1, 5000);
+        let shouldBlock = (MathHelpers.randomIntBetween(0, 2) != 0);
+        let randomBlockedNum = 0;
+        if (shouldBlock) {
+            randomBlockedNum = MathHelpers.randomIntBetween(0, randomMaxBlockedNum);
+        }
         let percentageBlocked = randomBlockedNum / randomMaxBlockedNum;
-        let disclosureColour = 'rgb(' + this.getColourBetween([255, 0, 0], [0, 255, 0], percentageBlocked).join() + ')'
+        let disclosureColour = 'rgb(' + getColourBetween([255, 0, 0], [0, 255, 0], percentageBlocked).join() + ')'
         this.setState({
             disclosureColour: disclosureColour,
             randomMaxBlockedNum: randomMaxBlockedNum,
             randomBlockedNum: randomBlockedNum,
         });
-    }
-
-    handleSearch = async () => {
-        await this.getDatasetInfo();
-    }
-
-    async getDatasetInfo() {
-        let datasetID = this.props.datasetID
-        let responseOBJ = {};
-        responseOBJ.response = await makeRequest(`https://api.beta.ons.gov.uk/v1/datasets/${datasetID}`, `GET`);
-        this.setState(responseOBJ, async () => {
-            await this.getVersionInfo(this.state.response.results.links.latest_version.href)
-        });
-    }
-
-    async getVersionInfo(url) {
-        let responseOBJ = {};
-        responseOBJ.datasetDetails = await makeRequest(url, `GET`);
-        this.setState(responseOBJ);
     }
 
     toggleDisclosureInfo() {
@@ -55,8 +41,8 @@ export class DatasetLandingPageContent extends React.Component {
     makeRelatedDatasets() {
         let relatedDatasets;
 
-        if (this.state.response.results.related_datasets != null) {
-            relatedDatasets = this.state.response.results.related_datasets.map((relatedDataset, index) => {
+        if (this.props.results.related_datasets != null) {
+            relatedDatasets = this.props.results.related_datasets.map((relatedDataset, index) => {
                 if (index === 3) {
                     return <p className={"font-size--18"}><a href="#">See more related datasets</a></p>
                 } else if (index > 2) {
@@ -73,8 +59,8 @@ export class DatasetLandingPageContent extends React.Component {
 
     makeRelatedPublications() {
         let relatedPublications;
-        if (this.state.response.results.publications != null) {
-            relatedPublications = this.state.response.results.publications.map((relatedPublication, index) => {
+        if (this.props.results.publications != null) {
+            relatedPublications = this.props.results.publications.map((relatedPublication, index) => {
                 if (index === 3) {
                     return <p className={"font-size--18"}><a href="#">See more related datasets</a></p>
                 } else if (index > 2) {
@@ -89,38 +75,8 @@ export class DatasetLandingPageContent extends React.Component {
             return null
         }
     }
-
-    // TODO move to helper
-    randomIntBetween(min, max) { // min and max included
-        return Math.floor(Math.random() * (max - min + 1) + min);
-    }
-
-    // TODO move to helper
-    getColourBetween(color1, color2, weight) {
-        var p = weight;
-        var w = p * 2 - 1;
-        var w1 = (w / 1 + 1) / 2;
-        var w2 = 1 - w1;
-        var rgb = [Math.round(color1[0] * w1 + color2[0] * w2),
-            Math.round(color1[1] * w1 + color2[1] * w2),
-            Math.round(color1[2] * w1 + color2[2] * w2)];
-        return rgb;
-    }
-
-    // TODO move to helper
-    bytesToSize(bytes) {
-        let sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-        if (bytes == 0) {
-            return '0 Byte';
-        }
-        let i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
-        return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
-    }
-
+    
     makeLandingPageInfo() {
-        if(!this.props.show){
-            return null;
-        }
         let relatedDatasets = this.makeRelatedDatasets();
         let relatedPublications = this.makeRelatedPublications();
         let disclosureControlArrow = this.state.disclosureControlInfoOpen ?
@@ -155,54 +111,58 @@ export class DatasetLandingPageContent extends React.Component {
                 <i>For example, Age: 19 categories to 8 categories</i>
 
             </p>) : null
+        let disclosureControlSection = null;
+        if (this.state.randomBlockedNum != 0) {
+            disclosureControlSection = <div className={"margin-bottom--8"}>
+                <div
+                    className={"disclosure-control-box margin-top--4 padding-top--3 padding-right--1 padding-bottom--3 padding-left--1"}
+                    style={{"border-color": this.state.disclosureColour}}>
+                    <b className={"font-size--24"}>{this.state.randomBlockedNum} out
+                        of {this.state.randomMaxBlockedNum} areas were
+                        blocked by Statistical Disclosure
+                        Control rules</b>
+                </div>
+                <p>{disclosureControlArrow}
+                    <a
+                        className={"disclosure-accordion font-size--18 float-left col--md-35 padding-left--1"}
+                        onClick={() => {
+                            this.toggleDisclosureInfo()
+                        }}><u>What is Statistical
+                        Data Disclosure and tips on
+                        how to improve the outputs</u>
+                    </a>
+                </p>
+                {disclosureControlInfo}
+            </div>
+        }
         let csvDownloadLink = "#"
         let downloadSize = "35 MB"
-        if (this.state.datasetDetails.results != null && this.state.datasetDetails.results.downloads != null && this.state.datasetDetails.results.downloads.csv) {
-            csvDownloadLink = this.state.datasetDetails.results.downloads.csv.href;
-            downloadSize = this.bytesToSize(this.state.datasetDetails.results.downloads.csv.size);
+        if (this.props.datasetDetails.results != null && this.props.datasetDetails.results.downloads != null && this.props.datasetDetails.results.downloads.csv) {
+            csvDownloadLink = this.props.datasetDetails.results.downloads.csv.href;
+            downloadSize = MathHelpers.bytesToSize(this.props.datasetDetails.results.downloads.csv.size);
         }
         return (
             <div>
                 <div className={"col--md-39 dataset-landing-main"}>
-                    <div className={"margin-bottom--5"}>
-                        <div
-                            className={"disclosure-control-box margin-top--4 padding-top--3 padding-right--1 padding-bottom--3 padding-left--1"}
-                            style={{"border-color": this.state.disclosureColour}}>
-                            <b className={"font-size--24"}>{this.state.randomBlockedNum} out
-                                of {this.state.randomMaxBlockedNum} areas were
-                                blocked by Statistical Disclosure
-                                Control rules</b>
-                        </div>
-                        <p>{disclosureControlArrow}
-                            <a
-                                className={"disclosure-accordion font-size--18 float-left col--md-35 padding-left--1"}
-                                onClick={() => {
-                                    this.toggleDisclosureInfo()
-                                }}><u>What is Statistical
-                                Data Disclosure and tips on
-                                how to improve the outputs</u>
-                            </a>
-                        </p>
-                        {disclosureControlInfo}
-                    </div>
-                    <p className={"font-size--18 padding-bottom--0 margin-bottom--0 margin-top--8"}>Dataset</p>
+                    {disclosureControlSection}
+                    <p className={"font-size--18 padding-bottom--0 margin-bottom--0 margin-top--3"}>Dataset</p>
                     <h1 className={"margin-top--0 padding-top--0 margin-bottom--4"}>
-                        <b>{this.state.response.results.title}</b></h1>
+                        <b>{this.props.results.title}</b></h1>
                     <p className={"font-size--18"}><b>Overview</b></p>
                     <p className={"font-size--18"}>Released: [dd Month yyyy]</p>
-                    <p className={"font-size--18"}>{this.state.response.results.description}</p>
+                    <p className={"font-size--18"}>{this.props.results.description}</p>
                     <p className={"font-size--18"}><b>Contact details for this dataset</b></p>
-                    <p className={"font-size--18"}>{this.state.response.results.contacts[0].name}<br/>
-                        <a href={`mailto:${this.state.response.results.contacts[0].email}`}>{this.state.response.results.contacts[0].email}</a><br/>
-                        <a href={`tel:${this.state.response.results.contacts[0].telephone}`}>{this.state.response.results.contacts[0].telephone}</a><br/>
+                    <p className={"font-size--18"}>{this.props.results.contacts[0].name}<br/>
+                        <a href={`mailto:${this.props.results.contacts[0].email}`}>{this.props.results.contacts[0].email}</a><br/>
+                        <a href={`tel:${this.props.results.contacts[0].telephone}`}>{this.props.results.contacts[0].telephone}</a><br/>
                     </p>
                     <p className={"font-size--18"}><b>Variables used within the dataset</b></p>
                     <p className={"font-size--18"}>You can change the variables however it is important to note that the
                         ONS uses Statistical
                         Disclosure Controls to protect the attributes of an individual and their data and so some
                         details might be restricted.</p>
-                    <DimensionPreviewMenu datasetDetails={this.state.datasetDetails.results}
-                                          selectedDimensionOptions={this.props.selectedDimensionOptions}
+                    <DimensionPreviewMenu datasetDetails={this.props.datasetDetails.results}
+                                          categories={this.props.categories}
                                           showDimensionFor={this.props.showDimensionFor}
                                           showDimensionOptionsFor={this.props.showDimensionOptionsFor}
                     />
@@ -231,21 +191,14 @@ export class DatasetLandingPageContent extends React.Component {
     }
 
     render() {
-        let searchString;
-        if (this.state.response == null || this.state.response.results == null || this.state.datasetDetails == null) {
+        if (!this.props.show) {
+            return null;
+        } else if (this.props.results == null || this.props.datasetDetails == null) {
             return null;
         }
         let landingPageInfo = this.makeLandingPageInfo();
-        return (<div className="content">
-            <SearchBar searchString={searchString} shouldRedirectToSearch={true}
-                       performSearch={() => {
-                       }}/>
-            <div className={"wrapper"}>
-                <Breadcrumbs datasetID={this.props.datasetID} datasetTheme={this.state.response.results.theme}
-                             updateErrorMessage={this.props.updateErrorMessage}/>
-                {landingPageInfo}
-
-            </div>
+        return (<div>
+            {landingPageInfo}
         </div>)
     }
 }

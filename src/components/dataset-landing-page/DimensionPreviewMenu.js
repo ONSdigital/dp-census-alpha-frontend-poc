@@ -1,5 +1,6 @@
 import React from 'react';
 import '../../styles/App.css';
+import {toTitleCase} from "../../helpers/Text";
 
 export class DimensionPreviewMenu extends React.Component {
     static defaultProps = {dimensionOptions:{}}
@@ -11,22 +12,12 @@ export class DimensionPreviewMenu extends React.Component {
         }
     }
 
-    //TODO move to helpers
-    toTitleCase(str) {
-        return str.replace(
-            /\w\S*/g,
-            function (txt) {
-                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-            }
-        );
-    }
-
-    makeDimensionRow(label, name) {
-        let id = label || this.toTitleCase(name);
+    makeDimensionRow(label, name, selectedCategory) {
+        let id = label || toTitleCase(name);
         return (<div className={"col margin-left--0 padding-left--1 dimension-selection-area-block-group"}>
             <div className={"dimension-selection-area-block font-size--18"}><b>{id}</b>
             </div>
-            <div className={"dimension-selection-area-block font-size--18"}>{this.props.dimensionOptions[id] || 'Nothing selected'}</div>
+            <div className={"dimension-selection-area-block font-size--18"}>{selectedCategory || 'Nothing selected'}</div>
             <div className={"dimension-selection-area-block font-size--18"}>
                 <input className="preview-download-change font-size--18" type="button" value="Change"
                        name="filter"
@@ -49,7 +40,16 @@ export class DimensionPreviewMenu extends React.Component {
 
         let dimensionRow = [];
         this.props.datasetDetails.dimensions.forEach((dimension) => {
-            dimensionRow.push(this.makeDimensionRow(dimension.label, dimension.name))
+            let selectedCategory = "Nothing to show"
+
+            if (dimension.categories != null){
+                dimension.categories.forEach((category) => {
+                    if (category.selected) {
+                        selectedCategory = category.contains.join(" · ");
+                    }
+                })
+            }
+            dimensionRow.push(this.makeDimensionRow(dimension.label, dimension.name, selectedCategory))
         })
         return (<div>{dimensionRow}</div>)
     }
