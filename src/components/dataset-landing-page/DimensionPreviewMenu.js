@@ -1,9 +1,10 @@
 import React from 'react';
 import '../../styles/App.css';
-import {toTitleCase} from "../../helpers/Text";
+import {toTitleCase, makeArrayList} from "../../helpers/Text";
 
 export class DimensionPreviewMenu extends React.Component {
-    static defaultProps = {dimensionOptions:{}}
+    static defaultProps = {dimensionOptions: {}}
+
     constructor(props) {
         super(props);
 
@@ -12,12 +13,14 @@ export class DimensionPreviewMenu extends React.Component {
         }
     }
 
-    makeDimensionRow(label, name, selectedCategory) {
+    makeDimensionRow(label, name, selectedCategory, selectedCategoryContains) {
         let id = label || toTitleCase(name);
         return (<div className={"col margin-left--0 padding-left--1 dimension-selection-area-block-group"}>
             <div className={"dimension-selection-area-block font-size--18"}><b>{id}</b>
             </div>
-            <div className={"dimension-selection-area-block font-size--18"}>{selectedCategory || 'Nothing selected'}</div>
+            <div className={"dimension-selection-area-block font-size--18"}>{selectedCategory || 'Nothing selected'}
+                <p className={"margin-top--1"}>{makeArrayList(selectedCategoryContains, 300)}</p>
+            </div>
             <div className={"dimension-selection-area-block font-size--18"}>
                 <input className="preview-download-change font-size--18" type="button" value="Change"
                        name="filter"
@@ -41,15 +44,17 @@ export class DimensionPreviewMenu extends React.Component {
         let dimensionRow = [];
         this.props.datasetDetails.dimensions.forEach((dimension) => {
             let selectedCategory = "Nothing to show"
+            let selectedCategoryContains = ""
 
-            if (dimension.categories != null){
+            if (dimension.categories != null) {
                 dimension.categories.forEach((category) => {
                     if (category.selected) {
-                        selectedCategory = category.contains.join(" · ");
+                        selectedCategory = category.name
+                        selectedCategoryContains = category.contains.slice();
                     }
                 })
             }
-            dimensionRow.push(this.makeDimensionRow(dimension.label, dimension.name, selectedCategory))
+            dimensionRow.push(this.makeDimensionRow(dimension.label, dimension.name, selectedCategory, selectedCategoryContains))
         })
         return (<div>{dimensionRow}</div>)
     }

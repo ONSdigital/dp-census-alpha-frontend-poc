@@ -6,3 +6,12 @@ export function toTitleCase(str) {
         }
     );
 }
+
+export function makeArrayList(list, maxLength) {
+    let arrayList = list.join(" · ")
+    if (arrayList.length > maxLength) {
+        list.pop();
+        arrayList = makeArrayList(list, maxLength)
+    }
+    return arrayList;
+}
