@@ -32,15 +32,21 @@ export class AreasTab extends React.Component {
     }
 
     toggleFullList(key) {
+        this.state.groupedAreas.forEach((area) => {
+            if (area.key === key){
+                area.view = !area.view
+            }
+            this.makeGroupAreaList();
+        })
 
     }
 
     makeGroupAreaList() {
         let groupedAreas = [];
+        let fullResults = null;
         if (this.props.areaProfiles != null && this.props.areaProfiles.aggregations != null && this.props.areaProfiles.aggregations.hierarchies != null) {
             this.props.areaProfiles.aggregations.hierarchies.buckets.forEach((areaBucket) => {
                 if (areaBucket.doc_count > 1) {
-                    areaBucket.view = false;
                     groupedAreas.push(areaBucket);
                 }
             })
@@ -49,14 +55,38 @@ export class AreasTab extends React.Component {
             let arrow = (miniResult.view === true) ?
                 <b className={"font-size--18 float-left disclosure-arrow black-link margin-right--1"}>▼</b> :
                 <b className={"font-size--18 line-height-md--26 float-left disclosure-arrow black-link margin-right--1"}>▶</b>;
-            return (<div key={miniResult.key} className={"separator cursor-pointer"} onClick={() => {
-                this.toggleFullList(miniResult.key);
-            }}>
-                <p className={"margin-top--0 margin-bottom--0 padding-top--1 padding-bottom--0 font-size--14"}>
-                    {miniResult.key}</p>
-                <p className={"margin-top--0 margin-bottom--0 padding-top--1 padding-bottom--1 font-size--18"}>
-                    {arrow}<u>{miniResult.doc_count} entries</u>
-                </p>
+
+            if (miniResult.view) {
+                fullResults = this.state.allAreas.map((area) => {
+                    if (area.hierarchy === miniResult.key) {
+                        return (
+                            <div key={area.id} className={"separator margin-left--2"}>
+                                <a href={`/dp-census-alpha-frontend-poc/area-profile/${area.links.self.id}`}
+                                   className={"black-link"}>
+                                    <p className={"margin-top--0 margin-bottom--0 padding-top--1 padding-bottom--0 font-size--14"}>
+                                        {area.hierarchy}
+                                    </p>
+                                    <p className={"margin-top--0 margin-bottom--0 padding-top--1 padding-bottom--1 font-size--18"}>
+                                        <u>{area.name}</u>
+                                    </p>
+                                </a>
+                            </div>)
+                    } else {
+                        return null;
+                    }
+                })
+            }
+            return (<div key={miniResult.key} className={"separator cursor-pointer"}>
+                <div onClick={() => {
+                    this.toggleFullList(miniResult.key);
+                }}>
+                    <p className={"margin-top--0 margin-bottom--0 padding-top--1 padding-bottom--0 font-size--14"}>
+                        {miniResult.key}</p>
+                    <p className={"margin-top--0 margin-bottom--0 padding-top--1 padding-bottom--1 font-size--18"}>
+                        {arrow}<u>{miniResult.doc_count} entries</u>
+                    </p>
+                </div>
+                {fullResults}
             </div>)
         })
         this.setState({
@@ -81,7 +111,8 @@ export class AreasTab extends React.Component {
                     return null
                 } else {
                     return (<div key={item.id} className={"separator"}>
-                        <a href={`/dp-census-alpha-frontend-poc/area-profile/${item.links.self.id}`} className={"black-link"}>
+                        <a href={`/dp-census-alpha-frontend-poc/area-profile/${item.links.self.id}`}
+                           className={"black-link"}>
                             <p className={"margin-top--0 margin-bottom--0 padding-top--1 padding-bottom--0 font-size--14"}>
                                 {item.hierarchy}
                             </p>
