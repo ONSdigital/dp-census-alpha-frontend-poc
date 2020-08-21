@@ -295,7 +295,7 @@ export class DataTab extends React.Component {
                         removeGeographyDimension={(value) => {
                             this.removeGeographyDimension(value)
                         }}/>
-                    <GeoSnapshot show={showGeoArea} area={area} count={areaCount}/>
+                    <GeoSnapshot show={showGeoArea} area={area} count={areaCount} changeStageTo={this.props.changeStageTo}/>
                     <Results results={datasetResults}/>
                     <CustomTableOpt show={showCustomTableOpt}/>
                     <Pagination show={showPagination} pageNum={this.getDisplayPageNum()} totalPages={totalPages}

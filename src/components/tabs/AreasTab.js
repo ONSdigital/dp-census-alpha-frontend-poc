@@ -13,51 +13,18 @@ export class AreasTab extends React.Component {
         this.state = {groupedAreas: []}
     }
 
-    componentDidMount() {
-        this.getAllAreas();
-    }
-
-    getAllAreas = async () => {
-        await this.fetchAllAreas();
-    }
-
-    async fetchAllAreas() {
-        let searchString = this.props.searchString;
-        let responseOBJ
-        responseOBJ = await makeRequest(`http://99.80.8.15:10300/search?q=${searchString}&limit=500&offset=0`, `GET`);
-        let allAreas = responseOBJ.results.area_profiles.items;
-        this.setState({allAreas: allAreas}, () => {
-            this.makeGroupAreaList();
-        });
-    }
-
-    toggleFullList(key) {
-        this.state.groupedAreas.forEach((area) => {
-            if (area.key === key){
-                area.view = !area.view
-            }
-            this.makeGroupAreaList();
-        })
-
-    }
+    // componentDidMount() {
+    // }
 
     makeGroupAreaList() {
-        let groupedAreas = [];
         let fullResults = null;
-        if (this.props.areaProfiles != null && this.props.areaProfiles.aggregations != null && this.props.areaProfiles.aggregations.hierarchies != null) {
-            this.props.areaProfiles.aggregations.hierarchies.buckets.forEach((areaBucket) => {
-                if (areaBucket.doc_count > 1) {
-                    groupedAreas.push(areaBucket);
-                }
-            })
-        }
-        let groupAreaList = groupedAreas.map((miniResult) => {
+        let groupAreaList = this.props.groupedAreas.map((miniResult) => {
             let arrow = (miniResult.view === true) ?
                 <b className={"font-size--18 float-left disclosure-arrow black-link margin-right--1"}>▼</b> :
                 <b className={"font-size--18 line-height-md--26 float-left disclosure-arrow black-link margin-right--1"}>▶</b>;
 
             if (miniResult.view) {
-                fullResults = this.state.allAreas.map((area) => {
+                fullResults = this.props.allAreas.map((area) => {
                     if (area.hierarchy === miniResult.key) {
                         return (
                             <div key={area.id} className={"separator margin-left--2"}>
@@ -78,7 +45,7 @@ export class AreasTab extends React.Component {
             }
             return (<div key={miniResult.key} className={"separator cursor-pointer"}>
                 <div onClick={() => {
-                    this.toggleFullList(miniResult.key);
+                    this.props.toggleFullList(miniResult.key);
                 }}>
                     <p className={"margin-top--0 margin-bottom--0 padding-top--1 padding-bottom--0 font-size--14"}>
                         {miniResult.key}</p>
@@ -89,20 +56,18 @@ export class AreasTab extends React.Component {
                 {fullResults}
             </div>)
         })
-        this.setState({
-            groupAreaList: groupAreaList,
-            groupedAreas: groupedAreas
-        })
+        return groupAreaList
     }
 
     makeResultsList() {
-        let areas = this.state.allAreas || this.props.areaProfiles.items
+        let areas = this.props.allAreas || this.props.areaProfiles.items
         if (areas == null) {
             return null;
         }
+        let groupAreaList = this.makeGroupAreaList(); // This changes state during a state change and causes another render endless cycle
         let individualElementList = areas.map((item) => {
                 let isGroupedItem = false
-                this.state.groupedAreas.forEach((groupedArea) => {
+                this.props.groupedAreas.forEach((groupedArea) => {
                     if (groupedArea.key === item.hierarchy) {
                         isGroupedItem = true;
                     }
@@ -127,7 +92,7 @@ export class AreasTab extends React.Component {
         )
         return (<div>
             {individualElementList}
-            {this.state.groupAreaList}
+            {groupAreaList}
         </div>)
     }
 

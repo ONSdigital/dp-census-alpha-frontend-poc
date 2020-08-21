@@ -22,11 +22,7 @@ export class AreaProfilePage extends React.Component {
     }
 
     async fetchAreaProfile() {
-        const params = new URLSearchParams(this.props.location.search);
-        let areaID = params.get('id');
-        if (this.state.searchString !== "") {
-            areaID = this.state.searchString;
-        }
+        let areaID = this.props.match.params.id
 
         let responseOBJ = {};
         responseOBJ.response = await makeRequest(`http://99.80.8.15:10300/area-profiles/${areaID}`, `GET`);

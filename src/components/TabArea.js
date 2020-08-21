@@ -64,12 +64,16 @@ export class TabArea extends React.Component {
                          resultsPerPage={this.props.resultsPerPage}
                          getNextPage={this.props.getNextPage}
                          updateErrorMessage={this.props.updateErrorMessage}
+                         changeStageTo={this.changeTab}
                 />
                 <AreasTab show={this.state.activeTab === 1}
                           searchString={this.props.searchString}
                           totalResults={totalAreaResults} pageNum={this.props.pageNum}
                           areaProfiles={areaProfiles}
                           requestSearch={this.props.requestSearch}
+                          allAreas={this.props.allAreas}
+                          groupedAreas={this.props.groupedAreas}
+                          toggleFullList={this.props.toggleFullList}
                 />
                 <PublicationsTab show={this.state.activeTab === 2}/>
             </div>
