@@ -89,7 +89,7 @@ export class DatasetLandingPage extends React.Component {
     }
 
     showDimensionOptionsFor(map) {
-        this.setState({errorMessage: `Warning this is a 'CMD' dataset, which has no mappings for: ${map}`})
+        this.setState({errorMessage: `Warning this functionality is not available in the POC ${map}`})
     }
 
     showDimensionFor(dimensionID) {

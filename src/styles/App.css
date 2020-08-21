@@ -3,6 +3,10 @@
     padding-right: 40px;
 }
 
+.font-size--20 {
+    font-size: 20px;
+}
+
 .restart {
     display: inline-block;
     float: right;
@@ -513,6 +517,19 @@
 .mappings-selection-area {
     border-bottom: 1px solid #D0D2D3;
 }
+
+.separator {
+    border-bottom: 1px solid #D0D2D3;
+    border-top: 1px solid #D0D2D3;
+}
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.black-link{
+    color: #323132;
+}
+
 
 body {
     font-family: "Open Sans", Helvetica, Arial, sans-serif

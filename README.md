@@ -2,7 +2,7 @@
 This is a Proof of Concept (POC) specifically this is a PROTOTYPE not production code, this code should never find its way to production. 
 If it does something has gone seriously wrong. Not only is this a POC prototype but this is part of an Alpha project.
 
-The code itself was constructed with speed in mind and not maintainability.
+The code itself was constructed with speed of construction in mind and not future maintainability or expansion.
 
 The goal of this POC is to fulfil demonstrate an iteration of a user journey and how it might work.
 

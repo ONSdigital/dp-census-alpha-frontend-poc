@@ -72,7 +72,7 @@ export class SearchPage extends React.Component {
     }
 
     updateErrorMessage(message) {
-        if(this.state.errorMessage === ""){
+        if (this.state.errorMessage === "") {
             this.setState({response: {errorMessage: message}})
         }
     }
@@ -100,12 +100,13 @@ export class SearchPage extends React.Component {
                          resultsPerPage={this.state.pageLimit}
                          getNextPage={this.getNextPage}
                          updateErrorMessage={this.updateErrorMessage}
-                         requestSearch={(dimensions, topics, hierarchies, pageNum) => {
+                         requestSearch={(dimensions, topics, hierarchies, pageNum, limit) => {
                              this.setState({
                                  dimensionsString: dimensions.join(","),
                                  topicsString: topics.join(","),
                                  hierarchiesString: hierarchies.join(","),
-                                 pageNum: pageNum
+                                 pageNum: pageNum,
+                                 limit: limit || 10
                              }, () => {
                                  this.handleSearch();
                              })

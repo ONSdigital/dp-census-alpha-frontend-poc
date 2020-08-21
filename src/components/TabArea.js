@@ -30,6 +30,7 @@ export class TabArea extends React.Component {
         let totalDataResults = 0;
         let totalAreaResults = 0;
         let totalPublicationResults = 0;
+        let areaProfiles=[]
         if (this.props.results != null && this.props.results.counts != null) {
             if (this.props.results.counts.datasets != null) {
                 totalDataResults = this.props.results.counts.datasets;
@@ -40,6 +41,7 @@ export class TabArea extends React.Component {
             if (this.props.results.counts.publications != null) {
                 totalPublicationResults = this.props.results.counts.publications;
             }
+            areaProfiles = this.props.results.area_profiles
         }
         return <div>
             <div className={"tabbar"}>
@@ -54,7 +56,8 @@ export class TabArea extends React.Component {
                 </div>
             </div>
             <div className={"wrapper"}>
-                <DataTab show={this.state.activeTab === 0} searchString={this.props.searchString}
+                <DataTab show={this.state.activeTab === 0}
+                         searchString={this.props.searchString}
                          totalResults={totalDataResults} pageNum={this.props.pageNum}
                          requestSearch={this.props.requestSearch}
                          results={this.props.results}
@@ -62,7 +65,12 @@ export class TabArea extends React.Component {
                          getNextPage={this.props.getNextPage}
                          updateErrorMessage={this.props.updateErrorMessage}
                 />
-                <AreasTab show={this.state.activeTab === 1}/>
+                <AreasTab show={this.state.activeTab === 1}
+                          searchString={this.props.searchString}
+                          totalResults={totalAreaResults} pageNum={this.props.pageNum}
+                          areaProfiles={areaProfiles}
+                          requestSearch={this.props.requestSearch}
+                />
                 <PublicationsTab show={this.state.activeTab === 2}/>
             </div>
         </div>

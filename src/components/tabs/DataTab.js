@@ -265,8 +265,8 @@ export class DataTab extends React.Component {
 
         if (this.props.results != null && this.props.results.area_profiles != null && this.props.results.area_profiles.items != null && this.props.results.area_profiles.items[0] != null) {
             showGeoArea = true;
-            area = this.results.area_profiles.items[0];
-            areaCount = this.results.area_profiles.count;
+            area = this.props.results.area_profiles.items[0];
+            areaCount = this.props.results.counts.area_profiles;
         }
         let datasetResults = this.props.results == null ? null : this.props.results.datasets;
         let dimensionList = this.state.dimensions == null ? [] : this.state.dimensions.items;

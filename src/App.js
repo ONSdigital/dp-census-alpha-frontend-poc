@@ -4,6 +4,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {DatasetLandingPage} from "./pages/DatasetLandingPage";
 import {SearchPage} from "./pages/SearchPage";
 import {Homepage} from "./pages/Homepage";
+import {AreaProfilePage} from "./pages/AreaProfilePage";
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
                     <Route path="/dp-census-alpha-frontend-poc/dataset-landing/:name"
                            render={(props) => <DatasetLandingPage {...props}/>}/>
                     <Route path="/dp-census-alpha-frontend-poc/search/" component={SearchPage}/>
+                    <Route path="/dp-census-alpha-frontend-poc/area-profile/:id" component={AreaProfilePage}/>
                     <Route path="/dp-census-alpha-frontend-poc/" component={Homepage} exact/>
                 </Switch>
             </div>
