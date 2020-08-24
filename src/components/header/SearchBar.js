@@ -49,7 +49,8 @@ export class SearchBar extends React.Component {
                                id="nav-search"
                                name="q"
                                value={this.state.searchString}
-                               onChange={(ev) => this.setSearchInput(ev.target.value)}/>
+                               onChange={(ev) => this.setSearchInput(ev.target.value)}
+                               placeholder={"Enter a keyword, area, place name or postcode"}/>
                         <button type="button" className="search__button col--md-3 col--lg-3" id="nav-search-submit">
                             <span className="visuallyhidden">Search</span>
                             <span className="icon icon-search--light"/>

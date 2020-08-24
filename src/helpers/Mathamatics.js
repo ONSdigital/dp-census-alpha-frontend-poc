@@ -2,6 +2,10 @@ export function randomIntBetween(min, max) { // min and max included
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+export function randomBetween(min, max) { // min and max included
+    return Math.random() * (max - min + 1) + min;
+}
+
 export function bytesToSize(bytes) {
     let sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
     if (bytes == 0) {

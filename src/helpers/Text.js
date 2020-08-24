@@ -15,3 +15,7 @@ export function makeArrayList(list, maxLength) {
     }
     return arrayList;
 }
+
+export function numberToFormattedString(value) {
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}

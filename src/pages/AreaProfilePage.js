@@ -5,6 +5,8 @@ import {Footer} from "../components/footer/Footer";
 import {makeRequest} from "../helpers/API";
 import {SearchBar} from "../components/header/SearchBar";
 import {Warning} from "../components/Warning";
+import {Breadcrumbs} from "../components/Breadcrumbs";
+import {AreaProfileContents} from "../components/area-profile-components/AreaProfileContents";
 
 export class AreaProfilePage extends React.Component {
 //TODO on search query change the filters are lost
@@ -42,6 +44,9 @@ export class AreaProfilePage extends React.Component {
     render() {
         let searchString = "";
         let errorMessage = this.state.response == null ? "" : this.state.response.errorMessage;
+        if(this.state.response == null){
+            return null;
+        }
 
 
         return <div className="page-container">
@@ -49,6 +54,12 @@ export class AreaProfilePage extends React.Component {
             <div className="content">
                 <SearchBar searchString={searchString} shouldRedirectToSearch={false}
                            performSearch={this.performSearch}/>
+                           <div className={"wrapper"}>
+                {/*<Breadcrumbs datasetID={this.props.match.params.name}*/}
+                {/*             datasetTheme={this.state.response.results.theme}*/}
+                {/*             updateErrorMessage={this.updateErrorMessage}/>*/}
+                <AreaProfileContents areaProfile={this.state.response.results}/>
+                           </div>
                 <Footer/>
                 <Warning message={errorMessage}
                          hideWarnings={this.hideWarnings}/>

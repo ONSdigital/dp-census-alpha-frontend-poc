@@ -8,6 +8,9 @@ import {AreaProfilePage} from "./pages/AreaProfilePage";
 
 
 function App() {
+    // TODO switch over to using this style, to make prod deployment cleaner.
+    //<Router basename={'/subdirectory'}>
+    //   <Route path={`${process.env.PUBLIC_URL}/`} component={Homepage} />
     return (
         <BrowserRouter>
             <div>
