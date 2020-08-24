@@ -1,11 +1,11 @@
 import React from 'react';
 import '../../styles/App.css';
-import {SortBox} from "../DataTabComponents/SortBox";
-import {FilterMenu} from "../DataTabComponents/filter/FilterMenu";
-import {Results} from "../DataTabComponents/Results";
-import {SelectedSearchFilters} from "../DataTabComponents/filter/SelectedSearchFilters";
-import {CustomTableOpt} from "../DataTabComponents/CustomTableOpt";
-import {GeoSnapshot} from "../DataTabComponents/GeoSnapshot";
+import {SortBox} from "../data-tab-components/SortBox";
+import {FilterMenu} from "../data-tab-components/filter/FilterMenu";
+import {Results} from "../data-tab-components/Results";
+import {SelectedSearchFilters} from "../data-tab-components/filter/SelectedSearchFilters";
+import {CustomTableOpt} from "../data-tab-components/CustomTableOpt";
+import {GeoSnapshot} from "../data-tab-components/GeoSnapshot";
 import {Pagination} from "../Pagination";
 import {makeRequest} from "../../helpers/API";
 

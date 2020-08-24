@@ -529,6 +529,11 @@
 .black-link{
     color: #323132;
 }
+.mapContainer{
+    float:right;
+    height: 35vh;
+    width: 35vw;
+}
 
 
 body {

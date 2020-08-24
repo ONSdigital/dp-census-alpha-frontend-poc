@@ -2,6 +2,7 @@ import React from 'react';
 import '../../styles/App.css';
 import * as MathHelpers from "../../helpers/Mathamatics";
 import * as TextHelpers from "../../helpers/Text";
+import {AreaProfileMap} from "./AreaProfileMap";
 
 
 export class AreaProfileInfo extends React.Component {
@@ -47,6 +48,7 @@ export class AreaProfileInfo extends React.Component {
                     ownership, {houseSocialRented}% are
                     socially rented, {housePrivateRented}% are privately rented and {houseOther}% have another tenure.</p>
             </div>
+            <AreaProfileMap/>
         </div>)
     }
 }
