@@ -27,7 +27,9 @@ export class AreaProfileTabArea extends React.Component {
     render() {
         let totalDatasetResults = 0;
         let totalVisualisations = 0;
-        if (this.props.datasets != null && this.props.datasets.count != null) {
+        if (this.props.datasetSearchResults != null){
+            totalDatasetResults = this.props.datasetSearchResults.length;
+        } else if (this.props.datasets != null && this.props.datasets.count != null) {
             totalDatasetResults = this.props.datasets.count
             if (this.props.visualisations != null && this.props.visualisations.count != null) {
                 totalVisualisations = this.props.visualisations.count
@@ -45,6 +47,7 @@ export class AreaProfileTabArea extends React.Component {
             <div className={"wrapper"}>
                 <AreaProfileDatasetsTab show={this.state.activeTab === 0}
                                         datasets={this.props.datasets}
+                                        datasetSearchResults={this.props.datasetSearchResults}
                 />
                 <AreaProfileVisualisationTab show={this.state.activeTab === 1}
                                              visualisations={this.props.visualisations}
