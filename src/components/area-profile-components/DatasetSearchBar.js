@@ -28,15 +28,15 @@ export class DatasetSearchBar extends React.Component {
                               e.preventDefault()
                               this.handleSearch(e);
                           }}>
-                        <input type="search" autoComplete="off" className="search__input col col--md-21 col--lg-32"
+                        <input type="search" autoComplete="off" className="search__input in-page-search-input col col--md-21 col--lg-32"
                                id="nav-search"
                                name="q"
                                value={this.state.searchString}
                                onChange={(ev) => this.setSearchInput(ev.target.value)}
                                placeholder={"Find a dataset for this area"}/>
-                            <button type="button" className="search__button col--md-3 col--lg-3" id="nav-search-submit">
+                            <button type="button" className="search__button col--md-3 col--lg-3 in-page-search-button" id="nav-search-submit">
                                 <span className="visuallyhidden">Search</span>
-                                <span className="icon icon-search--light"/>
+                                <span className="icon icon-search--dark"/>
                             </button>
                     </form>
                 </div>

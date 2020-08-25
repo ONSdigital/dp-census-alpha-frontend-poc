@@ -6,6 +6,9 @@ export class Tab extends React.Component {
     render() {
         let tabClass = "tab"
         tabClass += this.props.active ? " tab-active" : " tab-inactive"
+        if (this.props.inPage){
+            tabClass += " selected-tab-border"
+        }
         let tabButtonClass = "tab-button"
         tabButtonClass += this.props.active ? " tab-button-active" : " tab-button-inactive"
         return <div className={tabClass}>
