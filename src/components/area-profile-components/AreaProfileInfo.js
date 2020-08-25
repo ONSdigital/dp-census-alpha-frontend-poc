@@ -35,7 +35,7 @@ export class AreaProfileInfo extends React.Component {
         let housePrivateRented = MathHelpers.randomIntBetween(0, (100 - (houseOwn + houseShared + houseSocialRented)));
         let houseOther = 100 - (houseOwn + houseShared + houseSocialRented + housePrivateRented);
         return (<div>
-            <div className={"col--md-25"}>
+            <div className={"col--md-25 float-left"}>
                 <p className={"font-size--16"}><b>Summary</b></p>
                 <p className={"font-size--16"}>{this.props.areaProfile.name} had a
                     population of {randomPopulation} on Census day 2021,

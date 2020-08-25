@@ -21,7 +21,7 @@ export class DatasetSearchBar extends React.Component {
 
     render() {
         return (
-            <div className="nav-search--hidden print--hide" id="searchBar">
+            <div className="nav-search--hidden print--hide margin-bottom--4" id="searchBar">
                 <div className="wrapper" role="search">
                     <form className=""
                           onSubmit={(e) => {
