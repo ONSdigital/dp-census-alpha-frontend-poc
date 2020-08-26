@@ -5,6 +5,7 @@ import {DatasetLandingPage} from "./pages/DatasetLandingPage";
 import {SearchPage} from "./pages/SearchPage";
 import {Homepage} from "./pages/Homepage";
 import {AreaProfilePage} from "./pages/AreaProfilePage";
+import {AreaDatasetPage} from "./pages/AreaDatasetPage";
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
                            render={(props) => <DatasetLandingPage {...props}/>}/>
                     <Route path="/dp-census-alpha-frontend-poc/search/" component={SearchPage}/>
                     <Route path="/dp-census-alpha-frontend-poc/area-profile/:id" component={AreaProfilePage}/>
+                    <Route path="/dp-census-alpha-frontend-poc/area-dataset/:name" component={AreaDatasetPage}/>
                     <Route path="/dp-census-alpha-frontend-poc/" component={Homepage} exact/>
                 </Switch>
             </div>

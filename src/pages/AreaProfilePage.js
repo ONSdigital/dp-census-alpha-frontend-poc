@@ -55,9 +55,6 @@ export class AreaProfilePage extends React.Component {
                 <SearchBar searchString={searchString} shouldRedirectToSearch={true}
                            performSearch={()=>{}}/>
                            <div className={"wrapper"}>
-                {/*<Breadcrumbs datasetID={this.props.match.params.name}*/}
-                {/*             datasetTheme={this.state.response.results.theme}*/}
-                {/*             updateErrorMessage={this.updateErrorMessage}/>*/}
                 <AreaProfileContents areaProfile={this.state.response.results}/>
                            </div>
                 <Footer/>

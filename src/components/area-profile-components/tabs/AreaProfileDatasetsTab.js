@@ -13,7 +13,7 @@ export class AreaProfileDatasetsTab extends React.Component {
             datasetList = this.props.datasetSearchResults.map((datasetItem) => {
                 return (
                     <div className={"col--md-40"} key={datasetItem}>
-                        <a href={`/dp-census-alpha-frontend-poc/dataset-landing/${datasetItem.alias}`}>
+                        <a href={`/dp-census-alpha-frontend-poc/area-dataset/${datasetItem.alias}`}>
                             <p className={"font-size--18 margin-top--2 margin-bottom--1 padding-bottom--0 padding-top--0 "}>
                                 <u>{datasetItem.title}</u>
                             </p>

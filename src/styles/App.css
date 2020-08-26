@@ -594,6 +594,10 @@
     border-right: 1px solid #D0D2D3;
 }
 
+.grey-area {
+    background-color: #D0D2D3;
+}
+
 body {
     font-family: "Open Sans", Helvetica, Arial, sans-serif
 }
