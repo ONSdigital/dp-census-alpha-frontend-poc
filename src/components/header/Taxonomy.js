@@ -128,7 +128,7 @@ export class Taxonomy extends React.Component {
                             </ul>
                         </li>
                         <li className="primary-nav__item js-nav js-expandable">
-                            <a className="primary-nav__link col col--md-8 col--lg-10" href="/peoplepopulationandcommunity"
+                            <a className="primary-nav__link col col--md-8 col--lg-10" href="/dp-census-alpha-frontend-poc/peoplepopulationandcommunity"
                                aria-haspopup="true">People, population and community</a>
                             <ul className="primary-nav__child-list col col--md-16 col--lg-20 js-expandable__content js-nav-hidden jsEnhance"
                                 aria-expanded="false" aria-label="submenu">

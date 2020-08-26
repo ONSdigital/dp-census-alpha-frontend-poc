@@ -7,6 +7,7 @@ import {Homepage} from "./pages/Homepage";
 import {AreaProfilePage} from "./pages/AreaProfilePage";
 import {AreaDatasetPage} from "./pages/AreaDatasetPage";
 import {AreaTypePage} from "./pages/AreaTypePage";
+import {TaxPeoplePage} from "./pages/TaxPeoplePage";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
                     <Route path="/dp-census-alpha-frontend-poc/area-profile/:id" component={AreaProfilePage}/>
                     <Route path="/dp-census-alpha-frontend-poc/area-dataset/:name" component={AreaDatasetPage}/>
                     <Route path="/dp-census-alpha-frontend-poc/area-type/:name" component={AreaTypePage}/>
+                    <Route path="/dp-census-alpha-frontend-poc/peoplepopulationandcommunity/" component={TaxPeoplePage}/>
                     <Route path="/dp-census-alpha-frontend-poc/" component={Homepage} exact/>
                 </Switch>
             </div>
