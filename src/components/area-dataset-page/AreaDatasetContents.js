@@ -21,15 +21,16 @@ export class AreaDatasetContents extends React.Component {
                         <form method="get" action={() => {
                         }}>
                             <p className={"font-size--18"}><b>Get the data</b></p>
-                            <input type="submit" value={`Filter and download`} aria-label="download the data"
-                                   className="btn btn--primary btn--thick btn--wide btn--big btn--focus margin-right--2 font-weight-700 font-size--17"
-                                   name="download the data"
-                            />
+                            <a aria-label="download the data"
+                               className="btn btn--primary btn--thick btn--wide btn--big btn--focus margin-right--2 font-weight-700 font-size--17"
+                               href={`/dp-census-alpha-frontend-poc/area-type/${this.props.datasetID}`}
+                            >Filter and download</a>
                         </form>
                     </div>
                 </div>
                 <div className={"grey-area col--md-25 float-right padding-left--1"}>
-                    <p className={"font-size--18 margin-bottom--1 padding-bottom--0"}><b>Contact details for this dataset</b></p>
+                    <p className={"font-size--18 margin-bottom--1 padding-bottom--0"}><b>Contact details for this
+                        dataset</b></p>
                     <p className={"font-size--18"}>{this.props.results.contacts[0].name}<br/>
                         <a href={`mailto:${this.props.results.contacts[0].email}`}>{this.props.results.contacts[0].email}</a><br/>
                         <a href={`tel:${this.props.results.contacts[0].telephone}`}>{this.props.results.contacts[0].telephone}</a><br/>

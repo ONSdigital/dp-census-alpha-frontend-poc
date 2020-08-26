@@ -8,8 +8,9 @@ import {Warning} from "../components/Warning";
 import {AreaDatasetContents} from "../components/area-dataset-page/AreaDatasetContents"
 import {toTitleCase} from "../helpers/Text";
 import {Breadcrumbs} from "../components/Breadcrumbs";
+import {AreaTypeContents} from "../components/area-type-page/AreaTypeContents";
 
-export class AreaDatasetPage extends React.Component {
+export class AreaTypePage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -62,7 +63,8 @@ export class AreaDatasetPage extends React.Component {
                     <Breadcrumbs datasetID={this.props.match.params.name}
                                  datasetTheme={this.state.response.results.theme}
                                  updateErrorMessage={this.updateErrorMessage}/>
-                    <AreaDatasetContents results={this.state.response.results} datasetID={this.props.match.params.name}/>
+                    <AreaTypeContents datasetID={this.props.match.params.name}
+                    datasetName={this.state.response.results.title}/>
                 </div>
             </div>
             <Footer/>

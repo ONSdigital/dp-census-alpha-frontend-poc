@@ -572,12 +572,14 @@
 .in-page-tab-bar {
     background-color: white;
 }
-.in-page-search-input{
+
+.in-page-search-input {
     border-left: 1px solid #D0D2D3;
     border-top: 1px solid #D0D2D3;
     border-bottom: 1px solid #D0D2D3;
 }
-.in-page-search-button{
+
+.in-page-search-button {
     background-color: white;
     border-top: 1px solid #D0D2D3;
     border-bottom: 1px solid #D0D2D3;
@@ -592,6 +594,14 @@
     border-top: 1px solid #D0D2D3;
     border-left: 1px solid #D0D2D3;
     border-right: 1px solid #D0D2D3;
+}
+
+.border-all-around {
+    border: 1px solid #D0D2D3;
+}
+
+.vertical-align-top {
+    vertical-align: top;
 }
 
 .grey-area {

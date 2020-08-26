@@ -55,7 +55,7 @@ export class AreaProfilePage extends React.Component {
                 <SearchBar searchString={searchString} shouldRedirectToSearch={true}
                            performSearch={()=>{}}/>
                            <div className={"wrapper"}>
-                <AreaProfileContents areaProfile={this.state.response.results}/>
+                <AreaProfileContents areaProfile={this.state.response.results} datasetID={this.props.match.params.id}/>
                            </div>
                 <Footer/>
                 <Warning message={errorMessage}
