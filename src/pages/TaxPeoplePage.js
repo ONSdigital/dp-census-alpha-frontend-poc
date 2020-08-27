@@ -20,8 +20,9 @@ export class TaxPeoplePage extends React.Component {
                         <b>People, population and community</b></h1>
                     <p className={"font-size--18"}>
                         People living in the UK, changes in the population, how we spend our money, and data on crime,
-                        relationships, health and religion. These statistics help us build a details picture of how we
+                        relationships, health and religion. These statistics help us build a detailed picture of how we
                         live.
+
                     </p>
 
                     <div>
@@ -38,7 +39,8 @@ export class TaxPeoplePage extends React.Component {
                                 </div>
                                 <div
                                     className="box__content padding-top--1 padding-right--1 padding-bottom--1 padding-left--1 border-top--iron-sm border-top--iron-md">
-                                    <p className={"font-size--18"}>Life events in the UK including fertility rates, live births and stillbirths,
+                                    <p className={"font-size--18"}>Life events in the UK including fertility rates, live
+                                        births and stillbirths,
                                         family
                                         composition, life expectancy and deaths. This tells us about the health and
                                         relationships of the population.</p>
@@ -55,7 +57,8 @@ export class TaxPeoplePage extends React.Component {
                                 </div>
                                 <div
                                     className="box__content padding-top--1 padding-right--1 padding-bottom--1 padding-left--1 border-top--iron-sm border-top--iron-md">
-                                    <p className={"font-size--18"}>Figures on crime levels and trends for England and Wales based primarily on two
+                                    <p className={"font-size--18"}>Figures on crime levels and trends for England and
+                                        Wales based primarily on two
                                         sets
                                         of statistics: the Crime Survey for England and Wales (CSEW) and police recorded
                                         crime data.</p>
@@ -66,13 +69,14 @@ export class TaxPeoplePage extends React.Component {
                                 <div
                                     className="min-height--10 background--gallery padding-top--2 padding-left--1 padding-right--1">
                                     <h3 className="flush">
-                                        <a href="/peoplepopulationandcommunity/culturalidentity">Ethnicity<span
+                                        <a href="/dp-census-alpha-frontend-poc/tax/ethnicity?pageName=Ethnicity&rootName=People, population and community/">Ethnicity<span
                                             className="box__clickable"/></a>
                                     </h3>
                                 </div>
                                 <div
                                     className="box__content padding-top--1 padding-right--1 padding-bottom--1 padding-left--1 border-top--iron-sm border-top--iron-md">
-                                    <p className={"font-size--18"}>How people in the UK see themselves today in terms of ethnicity, sexual identity,
+                                    <p className={"font-size--18"}>How people in the UK see themselves today in terms of
+                                        ethnicity, sexual identity,
                                         religion and language, and how this has changed over time. We use a diverse
                                         range of
                                         sources for this data.</p>
@@ -89,7 +93,8 @@ export class TaxPeoplePage extends React.Component {
                                 </div>
                                 <div
                                     className="box__content padding-top--1 padding-right--1 padding-bottom--1 padding-left--1 border-top--iron-sm border-top--iron-md">
-                                    <p className={"font-size--18"}>Early years childcare, school and college education, and higher education and
+                                    <p className={"font-size--18"}>Early years childcare, school and college education,
+                                        and higher education and
                                         adult
                                         learning, including qualifications, personnel, and safety and well-being. </p>
                                 </div>
@@ -105,7 +110,8 @@ export class TaxPeoplePage extends React.Component {
                                 </div>
                                 <div
                                     className="box__content padding-top--1 padding-right--1 padding-bottom--1 padding-left--1 border-top--iron-sm border-top--iron-md">
-                                    <p className={"font-size--18"}>Analysis of the number of people registered to vote, including comparisons over
+                                    <p className={"font-size--18"}>Analysis of the number of people registered to vote,
+                                        including comparisons over
                                         time
                                         and between the UK constituent countries.</p>
                                 </div>
@@ -121,7 +127,8 @@ export class TaxPeoplePage extends React.Component {
                                 </div>
                                 <div
                                     className="box__content padding-top--1 padding-right--1 padding-bottom--1 padding-left--1 border-top--iron-sm border-top--iron-md">
-                                    <p className={"font-size--18"}>Life expectancy and the impact of factors such as occupation, illness and drug
+                                    <p className={"font-size--18"}>Life expectancy and the impact of factors such as
+                                        occupation, illness and drug
                                         misuse. We collect these statistics from registrations and surveys. </p>
                                 </div>
                             </li>

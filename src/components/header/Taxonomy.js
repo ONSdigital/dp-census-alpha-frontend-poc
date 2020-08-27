@@ -36,36 +36,37 @@ export class Taxonomy extends React.Component {
                                 aria-expanded="false" aria-label="submenu">
                                 <li className="primary-nav__child-item  js-expandable__child">
                                     <a className="primary-nav__child-link" tabIndex="-1"
-                                       href="/businessindustryandtrade/business">Business</a>
+                                       href="/dp-census-alpha-frontend-poc/tax/business?pageName=Business&rootName=Business, industry and trade">Business</a>
                                 </li>
                                 <li className="primary-nav__child-item  js-expandable__child">
                                     <a className="primary-nav__child-link" tabIndex="-1"
-                                       href="/businessindustryandtrade/changestobusiness">Changes to business</a>
+                                       href="/dp-census-alpha-frontend-poc/tax/changestobusiness?pageName=Changes to business&rootName=Business, industry and trade">Changes to business</a>
                                 </li>
                                 <li className="primary-nav__child-item  js-expandable__child">
                                     <a className="primary-nav__child-link" tabIndex="-1"
-                                       href="/businessindustryandtrade/constructionindustry">Construction industry</a>
+                                       href="/dp-census-alpha-frontend-poc/tax/constructionindustry?pageName=Construction industry&rootName=Business, industry and trade">Construction industry</a>
                                 </li>
                                 <li className="primary-nav__child-item  js-expandable__child">
                                     <a className="primary-nav__child-link" tabIndex="-1"
-                                       href="/businessindustryandtrade/itandinternetindustry">IT and internet industry</a>
+                                       href="/dp-census-alpha-frontend-poc/tax/itandinternetindustry?pageName=IT and internet industry&rootName=Business, industry and trade">IT and internet industry</a>
                                 </li>
                                 <li className="primary-nav__child-item  js-expandable__child">
                                     <a className="primary-nav__child-link" tabIndex="-1"
-                                       href="/businessindustryandtrade/internationaltrade">International trade</a>
+                                       href="/dp-census-alpha-frontend-poc/tax/internationaltrade?pageName=International trade&rootName=Business, industry and trade">International trade</a>
                                 </li>
                                 <li className="primary-nav__child-item  js-expandable__child">
                                     <a className="primary-nav__child-link" tabIndex="-1"
-                                       href="/businessindustryandtrade/manufacturingandproductionindustry">Manufacturing and
+                                       href="/dp-census-alpha-frontend-poc/tax/manufacturingandproductionindustry?pageName=Manufacturing and
+                                        production industry&rootName=Business, industry and trade">Manufacturing and
                                         production industry</a>
                                 </li>
                                 <li className="primary-nav__child-item  js-expandable__child">
                                     <a className="primary-nav__child-link" tabIndex="-1"
-                                       href="/businessindustryandtrade/retailindustry">Retail industry</a>
+                                       href="/dp-census-alpha-frontend-poc/tax/retailindustry?pageName=Retail industry&rootName=Business, industry and trade">Retail industry</a>
                                 </li>
                                 <li className="primary-nav__child-item  js-expandable__child">
                                     <a className="primary-nav__child-link" tabIndex="-1"
-                                       href="/businessindustryandtrade/tourismindustry">Tourism industry</a>
+                                       href="/dp-census-alpha-frontend-poc/tax/tourismindustry?pageName=Tourism industry&rootName=Business, industry and trade">Tourism industry</a>
                                 </li>
                             </ul>
                         </li>
@@ -76,38 +77,42 @@ export class Taxonomy extends React.Component {
                                 aria-expanded="false" aria-label="submenu">
                                 <li className="primary-nav__child-item  js-expandable__child">
                                     <a className="primary-nav__child-link" tabIndex="-1"
-                                       href="/economy/economicoutputandproductivity">Economic output and productivity</a>
+                                       href="/dp-census-alpha-frontend-poc/tax/economicoutputandproductivity?pageName=Economic output and productivity&rootName=Economy">Economic output and productivity</a>
                                 </li>
                                 <li className="primary-nav__child-item  js-expandable__child">
-                                    <a className="primary-nav__child-link" tabIndex="-1" href="/economy/environmentalaccounts">Environmental
+                                    <a className="primary-nav__child-link" tabIndex="-1" href="/dp-census-alpha-frontend-poc/tax/environmentalaccounts?pageName=Environmental
+                                        accounts&rootName=Economy">Environmental
                                         accounts</a>
                                 </li>
                                 <li className="primary-nav__child-item  js-expandable__child">
                                     <a className="primary-nav__child-link" tabIndex="-1"
-                                       href="/economy/governmentpublicsectorandtaxes">Government, public sector and taxes</a>
+                                       href="/dp-census-alpha-frontend-poc/tax/governmentpublicsectorandtaxes?pageName=Government, public sector and taxes&rootName=Economy">Government, public sector and taxes</a>
                                 </li>
                                 <li className="primary-nav__child-item  js-expandable__child">
                                     <a className="primary-nav__child-link" tabIndex="-1"
-                                       href="/economy/grossdomesticproductgdp">Gross Domestic Product (GDP)</a>
+                                       href="/dp-census-alpha-frontend-poc/tax/grossdomesticproductgdp?pageName=Gross Domestic Product (GDP)">Gross Domestic Product (GDP)</a>
                                 </li>
                                 <li className="primary-nav__child-item  js-expandable__child">
-                                    <a className="primary-nav__child-link" tabIndex="-1" href="/economy/grossvalueaddedgva">Gross
+                                    <a className="primary-nav__child-link" tabIndex="-1" href="/dp-census-alpha-frontend-poc/tax/grossvalueaddedgva?pageName=Gross
+                                        Value Added (GVA)&rootName=Economy">Gross
                                         Value Added (GVA)</a>
                                 </li>
                                 <li className="primary-nav__child-item  js-expandable__child">
                                     <a className="primary-nav__child-link" tabIndex="-1"
-                                       href="/economy/inflationandpriceindices">Inflation and price indices</a>
+                                       href="/dp-census-alpha-frontend-poc/tax/inflationandpriceindices?pageName=Inflation and price indices&rootName=Economy">Inflation and price indices</a>
                                 </li>
                                 <li className="primary-nav__child-item  js-expandable__child">
                                     <a className="primary-nav__child-link" tabIndex="-1"
-                                       href="/economy/investmentspensionsandtrusts">Investments, pensions and trusts</a>
+                                       href="/dp-census-alpha-frontend-poc/tax/investmentspensionsandtrusts?pageName=Investments, pensions and trusts&rootName=Economy">Investments, pensions and trusts</a>
                                 </li>
                                 <li className="primary-nav__child-item  js-expandable__child">
-                                    <a className="primary-nav__child-link" tabIndex="-1" href="/economy/nationalaccounts">National
+                                    <a className="primary-nav__child-link" tabIndex="-1" href="/dp-census-alpha-frontend-poc/tax/nationalaccounts?pageName=National
+                                        accounts&rootName=Economy">National
                                         accounts</a>
                                 </li>
                                 <li className="primary-nav__child-item  js-expandable__child">
-                                    <a className="primary-nav__child-link" tabIndex="-1" href="/economy/regionalaccounts">Regional
+                                    <a className="primary-nav__child-link" tabIndex="-1" href="/dp-census-alpha-frontend-poc/tax/regionalaccounts?pageName=Regional
+                                        accounts&rootName=Economy">Regional
                                         accounts</a>
                                 </li>
                             </ul>
@@ -119,11 +124,11 @@ export class Taxonomy extends React.Component {
                                 aria-expanded="false" aria-label="submenu">
                                 <li className="primary-nav__child-item  js-expandable__child">
                                     <a className="primary-nav__child-link" tabIndex="-1"
-                                       href="/employmentandlabourmarket/peopleinwork">People in work</a>
+                                       href="/dp-census-alpha-frontend-poc/tax/peopleinwork?pageName=People in work&rootName=Employment and labour market">People in work</a>
                                 </li>
                                 <li className="primary-nav__child-item  js-expandable__child">
                                     <a className="primary-nav__child-link" tabIndex="-1"
-                                       href="/employmentandlabourmarket/peoplenotinwork">People not in work</a>
+                                       href="/dp-census-alpha-frontend-poc/tax/peoplenotinwork?pageName=People not in work&rootName=Employment and labour market">People not in work</a>
                                 </li>
                             </ul>
                         </li>
@@ -134,54 +139,57 @@ export class Taxonomy extends React.Component {
                                 aria-expanded="false" aria-label="submenu">
                                 <li className="primary-nav__child-item  js-expandable__child">
                                     <a className="primary-nav__child-link" tabIndex="-1"
-                                       href="/peoplepopulationandcommunity/birthsdeathsandmarriages">Births, deaths and
+                                       href="/dp-census-alpha-frontend-poc/tax/birthsdeathsandmarriages?pageName=Births, deaths and
+                                        marriages&rootName=People, population and community">Births, deaths and
                                         marriages</a>
                                 </li>
                                 <li className="primary-nav__child-item  js-expandable__child">
                                     <a className="primary-nav__child-link" tabIndex="-1"
-                                       href="/peoplepopulationandcommunity/crimeandjustice">Crime and justice</a>
+                                       href="/dp-census-alpha-frontend-poc/tax/crimeandjustice?pageName=Crime and justice&rootName=People, population and community">Crime and justice</a>
                                 </li>
                                 <li className="primary-nav__child-item  js-expandable__child">
                                     <a className="primary-nav__child-link" tabIndex="-1"
-                                       href="/peoplepopulationandcommunity/culturalidentity">Cultural identity</a>
+                                       href="/dp-census-alpha-frontend-poc/tax/ethnicity?pageName=Ethnicity&rootName=People, population and community">Ethnicity</a>
                                 </li>
                                 <li className="primary-nav__child-item  js-expandable__child">
                                     <a className="primary-nav__child-link" tabIndex="-1"
-                                       href="/peoplepopulationandcommunity/educationandchildcare">Education and childcare</a>
+                                       href="/dp-census-alpha-frontend-poc/tax/educationandchildcare?pageName=Education and childcare&rootName=People, population and community">Education and childcare</a>
                                 </li>
                                 <li className="primary-nav__child-item  js-expandable__child">
                                     <a className="primary-nav__child-link" tabIndex="-1"
-                                       href="/peoplepopulationandcommunity/elections">Elections</a>
+                                       href="/dp-census-alpha-frontend-poc/tax/elections?pageName=Elections&rootName=People, population and community">Elections</a>
                                 </li>
                                 <li className="primary-nav__child-item  js-expandable__child">
                                     <a className="primary-nav__child-link" tabIndex="-1"
-                                       href="/peoplepopulationandcommunity/healthandsocialcare">Health and social care</a>
+                                       href="/dp-census-alpha-frontend-poc/tax/healthandsocialcare?pageName=Health and social care&rootName=People, population and community">Health and social care</a>
                                 </li>
                                 <li className="primary-nav__child-item  js-expandable__child">
                                     <a className="primary-nav__child-link" tabIndex="-1"
-                                       href="/peoplepopulationandcommunity/householdcharacteristics">Household
+                                       href="/dp-census-alpha-frontend-poc/tax/householdcharacteristics?pageName=Household
+                                        characteristics&rootName=People, population and community">Household
                                         characteristics</a>
                                 </li>
                                 <li className="primary-nav__child-item  js-expandable__child">
                                     <a className="primary-nav__child-link" tabIndex="-1"
-                                       href="/peoplepopulationandcommunity/housing">Housing</a>
+                                       href="/dp-census-alpha-frontend-poc/tax/housing?pageName=Housing&rootName=People, population and community">Housing</a>
                                 </li>
                                 <li className="primary-nav__child-item  js-expandable__child">
                                     <a className="primary-nav__child-link" tabIndex="-1"
-                                       href="/peoplepopulationandcommunity/leisureandtourism">Leisure and tourism</a>
+                                       href="/dp-census-alpha-frontend-poc/tax/leisureandtourism?pageName=Leisure and tourism&rootName=People, population and community">Leisure and tourism</a>
                                 </li>
                                 <li className="primary-nav__child-item  js-expandable__child">
                                     <a className="primary-nav__child-link" tabIndex="-1"
-                                       href="/peoplepopulationandcommunity/personalandhouseholdfinances">Personal and household
+                                       href="/dp-census-alpha-frontend-poc/tax/personalandhouseholdfinances?pageName=Personal and household
+                                        finances&rootName=People, population and community">Personal and household
                                         finances</a>
                                 </li>
                                 <li className="primary-nav__child-item  js-expandable__child">
                                     <a className="primary-nav__child-link" tabIndex="-1"
-                                       href="/peoplepopulationandcommunity/populationandmigration">Population and migration</a>
+                                       href="/dp-census-alpha-frontend-poc/tax/populationandmigration?pageName=Population and migration&rootName=People, population and community">Population and migration</a>
                                 </li>
                                 <li className="primary-nav__child-item  js-expandable__child">
                                     <a className="primary-nav__child-link" tabIndex="-1"
-                                       href="/peoplepopulationandcommunity/wellbeing">Well-being</a>
+                                       href="/dp-census-alpha-frontend-poc/tax/wellbeing?pageName=Well-being&rootName=People, population and community">Well-being</a>
                                 </li>
                             </ul>
                         </li>
