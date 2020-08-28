@@ -83,7 +83,7 @@ export class FilterTopicsMenu extends React.Component {
     }
 
     makeListModel() {
-        if (!this.state.showTopics) {
+        if (!this.state.showTopics || this.props.topics == null) {
             return null;
         }
         let refinementSelectedRoot = false;

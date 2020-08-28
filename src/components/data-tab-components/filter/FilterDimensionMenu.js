@@ -14,7 +14,7 @@ export class FilterDimensionMenu extends React.Component {
     }
 
     makeListModel() {
-        if (!this.state.showDimensions) {
+        if (!this.state.showDimensions || this.props.dimensions == null) {
             return null;
         }
         let dimensionOptions = this.props.dimensions.items.map((dim) => {

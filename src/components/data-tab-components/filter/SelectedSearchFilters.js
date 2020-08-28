@@ -83,6 +83,9 @@ export class SelectedSearchFilters extends React.Component {
     }
 
     render() {
+        if (this.props.filterGeographies == null || this.props.filterDimensions == null || this.props.filterTopics == null) {
+            return null
+        }
         let aFilterOn = false;
         this.props.filterGeographies.items.forEach((filter) => {
             if (filter.selected) {

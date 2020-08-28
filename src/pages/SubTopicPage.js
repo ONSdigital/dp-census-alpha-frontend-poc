@@ -12,10 +12,20 @@ export class SubTopicPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
+        this.hideWarnings = this.hideWarnings.bind(this);
+        this.updateErrorMessage = this.updateErrorMessage.bind(this);
     }
 
     componentDidMount() {
         this.getDatasets();
+    }
+
+    hideWarnings() {
+        this.setState({errorMessage: ""})
+    }
+
+    updateErrorMessage(errorMessage) {
+        this.setState({errorMessage: errorMessage});
     }
 
     getDatasets = async () => {
@@ -39,7 +49,7 @@ export class SubTopicPage extends React.Component {
         let urlParams = new URLSearchParams(window.location.search);
         let taxTitle = urlParams.get("pageName");
         let rootName = urlParams.get("rootName");
-        let datasets = (this.state.response != null) ? this.state.response.results.datasets : {}
+        let datasets = (this.state.response != null && this.state.response.results != null) ? this.state.response.results.datasets : {}
         return <div className="page-container">
             <Header/>
             <div className="content">

@@ -8,7 +8,6 @@ import {TabArea} from "../components/TabArea";
 import {Warning} from "../components/Warning";
 
 export class SearchPage extends React.Component {
-//TODO on search query change the filters are lost
     constructor(props) {
         super(props);
         this.state = {
@@ -49,7 +48,6 @@ export class SearchPage extends React.Component {
             searchString = this.state.searchString;
         }
 
-        // TODO change API request
         let responseOBJ = {};
         responseOBJ.response = await makeRequest(`http://99.80.8.15:10300/search?q=${searchString}&limit=${this.state.pageLimit}&offset=${this.state.pageNum * this.state.pageLimit}&topics=${this.state.topicsString}&dimensions=${this.state.dimensionsString}&hierarchies=${this.state.hierarchiesString}`, `GET`);
         let groupedAreas = [];
@@ -63,8 +61,7 @@ export class SearchPage extends React.Component {
         }
         responseOBJ.groupedAreas = groupedAreas;
         this.setState(responseOBJ, () => {
-            // TODO only if there are areas
-            if (responseOBJ.response.results.area_profiles.count > 0) {
+            if (responseOBJ.response.results != null && responseOBJ.response.results.area_profiles != null && responseOBJ.response.results.area_profiles.count > 0) {
                 this.getAllAreas();
             } else (this.setState({allAreas: []}))
         });

@@ -14,7 +14,7 @@ export class FilterGeography extends React.Component {
     }
 
     makeListModel() {
-        if (!this.state.showGeography) {
+        if (!this.state.showGeography || this.state.geographies == null) {
             return null;
         }
         let geographyRefinementSelected = false;

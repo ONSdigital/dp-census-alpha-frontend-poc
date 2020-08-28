@@ -8,7 +8,6 @@ export class AreaTypeContents extends React.Component {
     }
 
     checkChanged(value) {
-        console.log(value)
         this.setState({selected: value})
     }
 

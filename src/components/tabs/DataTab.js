@@ -10,13 +10,11 @@ import {Pagination} from "../Pagination";
 import {makeRequest} from "../../helpers/API";
 
 export class DataTab extends React.Component {
-//TODO
-// Search on change of any filters
+
     constructor(props) {
         super(props);
         this.state = {
             dimensions: {items: []},
-            // TODO replace with new endpoint
             geographies: {items: []},
             topics: {},
             filter: [],
@@ -47,10 +45,13 @@ export class DataTab extends React.Component {
 
     async submitTopicsRequest() {
         let response = await makeRequest(`http://99.80.8.15:10300/taxonomy`, `GET`);
-        //TODO handle error message, and don't populate topics if an error happened as you cant and it will fail
+        let topics
+        if(response.results != null && response.results.topics != null){
+            topics = response.results.topics
+        }
         this.setState({
             errorMessage: response.errorMessage,
-            topics: response.results.topics
+            topics: topics
         }, () => {
             this.props.updateErrorMessage(this.state.errorMessage);
         });
@@ -285,7 +286,7 @@ export class DataTab extends React.Component {
                     <SelectedSearchFilters
                         filterTopics={this.state.filter}
                         filterDimensions={dimensionList}
-                        filterGeographies={this.state.geographies} // TODO add geography
+                        filterGeographies={this.state.geographies}
                         removeFilterTopic={(value) => {
                             this.removeFilterTopic(value)
                         }}

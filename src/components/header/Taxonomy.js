@@ -30,7 +30,7 @@ export class Taxonomy extends React.Component {
                             </a>
                         </li>
                         <li className="primary-nav__item js-nav js-expandable">
-                            <a className="primary-nav__link col col--md-8 col--lg-10" href="/businessindustryandtrade"
+                            <a className="primary-nav__link col col--md-8 col--lg-10" href="/dp-census-alpha-frontend-poc/businessindustryandtrade"
                                aria-haspopup="true">Business, industry and trade</a>
                             <ul className="primary-nav__child-list col col--md-16 col--lg-20 js-expandable__content js-nav-hidden jsEnhance"
                                 aria-expanded="false" aria-label="submenu">
@@ -71,7 +71,7 @@ export class Taxonomy extends React.Component {
                             </ul>
                         </li>
                         <li className="primary-nav__item js-nav js-expandable">
-                            <a className="primary-nav__link col col--md-8 col--lg-10" href="/economy"
+                            <a className="primary-nav__link col col--md-8 col--lg-10" href="/dp-census-alpha-frontend-poc/economy"
                                aria-haspopup="true">Economy</a>
                             <ul className="primary-nav__child-list col col--md-16 col--lg-20 js-expandable__content js-nav-hidden jsEnhance"
                                 aria-expanded="false" aria-label="submenu">
@@ -118,7 +118,7 @@ export class Taxonomy extends React.Component {
                             </ul>
                         </li>
                         <li className="primary-nav__item js-nav js-expandable">
-                            <a className="primary-nav__link col col--md-8 col--lg-10" href="/employmentandlabourmarket"
+                            <a className="primary-nav__link col col--md-8 col--lg-10" href="/dp-census-alpha-frontend-poc/employmentandlabourmarket"
                                aria-haspopup="true">Employment and labour market</a>
                             <ul className="primary-nav__child-list col col--md-16 col--lg-20 js-expandable__content js-nav-hidden jsEnhance"
                                 aria-expanded="false" aria-label="submenu">

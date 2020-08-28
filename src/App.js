@@ -7,8 +7,11 @@ import {Homepage} from "./pages/Homepage";
 import {AreaProfilePage} from "./pages/AreaProfilePage";
 import {AreaDatasetPage} from "./pages/AreaDatasetPage";
 import {AreaTypePage} from "./pages/AreaTypePage";
-import {TaxPeoplePage} from "./pages/TaxPeoplePage";
 import {SubTopicPage} from "./pages/SubTopicPage";
+import {TaxPeoplePage} from "./pages/TaxPeoplePage";
+import {TaxEmploymentPage} from "./pages/TaxEmploymentPage";
+import {TaxEconomyPage} from "./pages/TaxEconomyPage";
+import {TaxBusinessPage} from "./pages/TaxBusinessPage";
 
 
 function App() {
@@ -27,6 +30,9 @@ function App() {
                     <Route path="/dp-census-alpha-frontend-poc/area-type/:name" component={AreaTypePage}/>
                     <Route path="/dp-census-alpha-frontend-poc/tax/:name" component={SubTopicPage}/>
                     <Route path="/dp-census-alpha-frontend-poc/peoplepopulationandcommunity/" component={TaxPeoplePage} exact/>
+                    <Route path="/dp-census-alpha-frontend-poc/employmentandlabourmarket/" component={TaxEmploymentPage} exact/>
+                    <Route path="/dp-census-alpha-frontend-poc/businessindustryandtrade/" component={TaxBusinessPage} exact/>
+                    <Route path="/dp-census-alpha-frontend-poc/economy/" component={TaxEconomyPage} exact/>
                     <Route path="/dp-census-alpha-frontend-poc/" component={Homepage} exact/>
                 </Switch>
             </div>
