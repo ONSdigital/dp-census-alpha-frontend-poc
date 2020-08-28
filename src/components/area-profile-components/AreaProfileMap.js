@@ -60,10 +60,11 @@ export class AreaProfileMap extends React.Component {
                         'fill-opacity': 0.6
                     }
                 });
+                console.log("hmm...");
+                console.log(map.getLayer(`maine-fill-${index}`))
+                console.log(map.getSource(`maine-${index}`))
             })
-            console.log("hmm...");
-            console.log(map.getLayer("maine-fill"))
-            console.log(map.getSource("maine"))
+
             this.setState({mapLoaded: true, map: map}, () => {
 
             });
