@@ -1,7 +1,6 @@
-import React, {useEffect, useRef} from 'react';
+import React from 'react';
 import '../../styles/App.css';
 import mapboxgl from 'mapbox-gl';
-import mapStyle from "../../assets/style.json"
 import * as MathHelpers from "../../helpers/Mathamatics";
 
 
@@ -27,39 +26,47 @@ export class AreaProfileMap extends React.Component {
             center: [this.state.longitude, this.state.latitude],
             zoom: this.state.zoom,
             accessToken: this.state.accessToken,
-            width:100,
-            height:100
+            width: 100,
+            height: 100
         });
         let fitArea = MathHelpers.getMinAndMaxCoordinates(this.props.coords)
         if (fitArea != null) {
-            map.fitBounds(fitArea, {padding: 60})
+            map.fitBounds(fitArea, {padding: 20})
         }
         map.on('load', () => {
-            map.addSource('maine', {
-                'type': 'geojson',
-                'data': {
-                    'type': 'Feature',
-                    'geometry': {
-                        'type': 'Polygon',
-                        'coordinates': [
-                            [
-                                this.props.coords[0]
-                            ]
-                        ]
+            console.log("---MAP---")
+            console.log(this.props.coords.length)
+
+            this.props.coords.forEach((coord, index)=>{
+                console.log('done one');
+                map.addSource(`maine-${index}`, {
+                    'type': 'geojson',
+                    'data': {
+                        'type': 'Feature',
+                        'geometry': {
+                            'type': 'Polygon',
+                            'coordinates':
+                                coord
+                        }
                     }
-                }
+                });
+                map.addLayer({
+                    'id': `maine-fill-${index}`,
+                    'type': 'fill',
+                    'source': `maine-${index}`,
+                    'layout': {},
+                    'paint': {
+                        'fill-color': '#088',
+                        'fill-opacity': 0.6
+                    }
+                });
+            })
+            console.log("hmm...");
+            console.log(map.getLayer("maine-fill"))
+            console.log(map.getSource("maine"))
+            this.setState({mapLoaded: true, map: map}, () => {
+
             });
-            map.addLayer({
-                'id': 'maine',
-                'type': 'fill',
-                'source': 'maine',
-                'layout': {},
-                'paint': {
-                    'fill-color': '#088',
-                    'fill-opacity': 0.8
-                }
-            });
-            this.setState({mapLoaded: true});
         });
     }
 
