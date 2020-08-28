@@ -43,7 +43,7 @@ export class AreaProfileInfo extends React.Component {
             <div className={"col--md-25 float-left"}>
                 <p className={"font-size--16"}><b>Summary</b></p>
                 <p className={"font-size--16"}>{this.props.areaProfile.name} had a
-                    population of {this.randomPopulation} on Census day 2021,
+                    population of {TextHelpers.numberToFormattedString(this.props.areaProfile.statistics[0].value)} on Census day 2021,
                     an {this.popDirection} of {this.popChangePercentage}% compared to 2011, which was {this.changeDesc} the average
                     change
                     across all {this.props.areaProfile.hierarchy}. Its population density was {this.popDensity} people per

@@ -34,11 +34,12 @@ export class AreaProfileMap extends React.Component {
             map.fitBounds(fitArea, {padding: 20})
         }
         map.on('load', () => {
-            console.log("---MAP---")
-            console.log(this.props.coords.length)
 
-            this.props.coords.forEach((coord, index)=>{
-                console.log('done one');
+            this.props.coords.forEach((coord, index) => {
+                // hacky fix as some polygons are singular and not in a polygon list
+                if (coord[0][0][0] == null) {
+                    coord = [coord];
+                }
                 map.addSource(`maine-${index}`, {
                     'type': 'geojson',
                     'data': {
@@ -46,7 +47,7 @@ export class AreaProfileMap extends React.Component {
                         'geometry': {
                             'type': 'Polygon',
                             'coordinates':
-                                coord
+                            coord
                         }
                     }
                 });
@@ -56,13 +57,10 @@ export class AreaProfileMap extends React.Component {
                     'source': `maine-${index}`,
                     'layout': {},
                     'paint': {
-                        'fill-color': '#088',
+                        'fill-color': '#AA0',
                         'fill-opacity': 0.6
                     }
                 });
-                console.log("hmm...");
-                console.log(map.getLayer(`maine-fill-${index}`))
-                console.log(map.getSource(`maine-${index}`))
             })
 
             this.setState({mapLoaded: true, map: map}, () => {
